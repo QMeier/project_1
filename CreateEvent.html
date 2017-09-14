@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<div>
-			<h1 class = "centeredtext" >Let's create an event</h1>
+			<h1 class = "centeredtext">Let's create an event</h1>
 			<section>
 				Name: <input type="text" id="name"><br /><br/>
 				Date: <input type="date" min="2017-09-01" max="2030-09-01" id ="date"/><br /><br/>
@@ -16,9 +16,14 @@
 		</div>
 			<section>
 				<!--save button-->
-				<p><input type="button" id="button" value="save" onclick="save('name','date','starttime', 'endtime');"></p>
-				<p><input type="button" id="button" value="clean the list" onclick="cleanlist();"></p>
-				<a href="index.html">Back</a>
+				<a><input type="button" id="button" value="save" onclick="save('name','date','starttime', 'endtime');"></a>
+				<!--change clean button to clean the whole page-->
+				<a><input type="button" id="button" value="clean the list" onclick="cleanlist();"></a>
+				<!--
+				<a><input type></a> id="button"><p href="index.html">Back</p></a>
+				-->
+				<a href="index.html"><button id="button">go back</button></a>	
+				
 			</section>
 		</div>
 	</body>
