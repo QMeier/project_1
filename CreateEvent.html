@@ -3,16 +3,23 @@
 		<title>Create an event</title>
 		<link rel="stylesheet" type="text/css" href="SubpageStyle.css">
 		<script type="text/javascript" src="CEScript.js"></script>
-	</head>	
+	</head>
 	<body>
 		<div>
-			<h1>Let's create an event</h1>
+			<h1 class = "centeredtext" >Let's create an event</h1>
 			<section>
-				<p>Name: <input type="text" id="name"></p>
-				<p><input type="button" id="button" value="save"></p>
+				Name: <input type="text" id="name"><br /><br/>
+				Date: <input type="date" min="2017-09-01" max="2030-09-01" id ="date"/><br /><br/>
+				Start Time: <input type="time" step="1800" id ="starttime"/><br /><br/>
+				End Time: <input type="time" step="1800" id ="endtime"/><br /><br/>
+			</section>
+		</div>
+			<section>
+				<!--save button-->
+				<p><input type="button" id="button" value="save" onclick="save('name','date','starttime', 'endtime');"></p>
+				<p><input type="button" id="button" value="clean the list" onclick="cleanlist();"></p>
 				<a href="index.html">Back</a>
 			</section>
 		</div>
-		
 	</body>
 </html>
