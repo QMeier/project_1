@@ -80,7 +80,7 @@ function save(name, date, starttime, endtime){
 				min = -1;
 			}
 			var timeslots = new Array(2*hrs + min);
-			var eventObj = {name:n, date:d, starttime:st, endtime:et, member:0, slots:timeslots};
+			var eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
 			var str = JSON.stringify(eventObj);
 			size++;
 			localStorage.setItem(size,str);
