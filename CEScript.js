@@ -1,5 +1,5 @@
 window.addEventListener("load", displayCreateEvent, false);
-// window.addEventListener("load", displaySignUp, false);
+window.addEventListener("load", displaySignUp, false);
 // function doFirst(){
 // 	var button = document.getElementById("button");
 // 	button.addEventListener("click", saveCrap, false);
@@ -22,7 +22,9 @@ window.addEventListener("load", displayCreateEvent, false);
 // 		Eventlist.innerHTML += (x+1) + ". Event:" + EN + ". Time:" + D + "<br />";
 // 	}
 // }
-var eventArray = [];
+
+//var eventArray = [];
+
 // function init(){
 // 	if(localStorage.eventRecord)
 // 	{
@@ -84,7 +86,7 @@ function save(name, date, starttime, endtime){
 			size++;
 			localStorage.setItem(size,str);
 			alert("You add an event successfully");
-			load(size);
+			loadeventObj(size);
 		}
 		else
 		{
@@ -103,27 +105,44 @@ function save(name, date, starttime, endtime){
 	console.log(size);//test size
 	//displaySignUp();
 }
-function load(n){
+function loadeventObj(n){
 	var storedValue = localStorage.getItem(n);
 	console.log(storedValue);//test the localStorage;
-	//var ob = JSON.parse(storedValue);
-	//console.log(name);
-	return storedValue;
+	var ob = JSON.parse(storedValue);
+	console.log(ob.name);
+	return ob;
 }
 
 function displayCreateEvent(){
 	document.getElementById('name').value = "Enter a name here";
 }
-// function displaySignUp(){
-// 	var Eventlist = document.getElementById('Eventlist');
-// 	Eventlist.innerHTML = "We are ready have following event(s):" +"<br />";
-// 	for(var x=1;x<=localStorage.length;x++)
-// 	{
-// 		var EN = load(x);
 
-// 		Eventlist.innerHTML += x + ". " + EN + "<br />";
-// 	}
-// }
+
+
+
+
+
+
+
+function displaySignUp(){
+	var Eventlist = document.getElementById('Eventlist');
+	Eventlist.innerHTML = "We are ready have following event(s):" +"<br />";
+	for(var x=1;x<=localStorage.length;x++)
+	{
+		var N = loadeventObj(x).name;
+		var D = loadeventObj(x).date;
+		var ST = loadeventObj(x).starttime;
+		var ET = loadeventObj(x).endtime;
+		var M = loadeventObj(x).member;
+
+		Eventlist.innerHTML += x + ". Event: " +N+ ". Date: " +D+ ". Time: " +ST+ "-" +ET+ ". Member: " +M+"<br />";
+	}
+}
+
+
+
+
+
 function cleanlist(){
 	localStorage.clear();
 }
