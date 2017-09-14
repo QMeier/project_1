@@ -1,4 +1,4 @@
-window.addEventListener("load", displayCreateEvent, false);
+//window.addEventListener("load", displayCreateEvent, false);
 window.addEventListener("load", displaySignUp, false);
 // function doFirst(){
 // 	var button = document.getElementById("button");
@@ -56,24 +56,7 @@ function save(name, date, starttime, endtime){
 	var st = document.getElementById(starttime).value;
 	var et = document.getElementById(endtime).value;
 	
-	var hrs = parseInt(et.substring(0, 2)) - parseInt(st.substring(0, 2));
-	var min;
-	if(parseInt(et.substring(4, 6)) > parseInt(st.substring(4, 6)))
-	{
-		min = 1;
-	}
-	else if(parseInt(et.substring(4, 6)) == parseInt(st.substring(4, 6)))
-	{
-		min = 0;		
-	}
-	else
-	{
-		min = -1;
-	}
 	
-	var timeslots = new Array(2*hrs + min);
-
-	var eventObj = {name:n, date:d, starttime:st, endtime:et, member:0, slots:timeslots};
 	// eventArray.push(eventObj);
 	// localStorage.eventRecord = JSON.stringify(eventArray);
 	//console.log(eventObj.name);
@@ -82,6 +65,22 @@ function save(name, date, starttime, endtime){
 	{
 		if((st[3]=='0'||st[3]=='3') && (et[3]=='0'||et[3]=='3') && st[4]=='0' && et[4]=='0')
 		{
+			var hrs = parseInt(et.substring(0, 2)) - parseInt(st.substring(0, 2));
+			var min;
+			if(parseInt(et.substring(4, 6)) > parseInt(st.substring(4, 6)))
+			{
+				min = 1;
+			}
+			else if(parseInt(et.substring(4, 6)) == parseInt(st.substring(4, 6)))
+			{
+				min = 0;		
+			}
+			else
+			{
+				min = -1;
+			}
+			var timeslots = new Array(2*hrs + min);
+			var eventObj = {name:n, date:d, starttime:st, endtime:et, member:0, slots:timeslots};
 			var str = JSON.stringify(eventObj);
 			size++;
 			localStorage.setItem(size,str);
@@ -107,15 +106,15 @@ function save(name, date, starttime, endtime){
 }
 function loadeventObj(n){
 	var storedValue = localStorage.getItem(n);
-	console.log(storedValue);//test the localStorage;
+	//console.log(storedValue);//test the localStorage;
 	var ob = JSON.parse(storedValue);
-	console.log(ob.name);
+	//console.log(ob.name);//test object name
 	return ob;
 }
 
-function displayCreateEvent(){
-	document.getElementById('name').value = "Enter a name here";
-}
+// function displayCreateEvent(){
+// 	document.getElementById('name').value = "Enter a name here";
+// }
 
 
 
@@ -134,14 +133,31 @@ function displaySignUp(){
 		var ST = loadeventObj(x).starttime;
 		var ET = loadeventObj(x).endtime;
 		var M = loadeventObj(x).member;
-
 		Eventlist.innerHTML += x + ". Event: " +N+ ". Date: " +D+ ". Time: " +ST+ "-" +ET+ ". Member: " +M+"<br />";
 	}
 }
 
 
 
-
+function EventOption(){
+	//var eventOption = "<option value ='0'>select</option>";
+	
+	// eventOption +="<option value= '1'>222</option>"
+	// document.getElementById("eventoption").innerHTML = eventOption;
+	var eventOption = document.getElementById("eventoption");
+	for(var x=1;x<=localStorage.length;x++)
+	{
+		var N = loadeventObj(x).name;
+		// var D = loadeventObj(x).date;
+		// var ST = loadeventObj(x).starttime;
+		// var ET = loadeventObj(x).endtime;
+		// var M = loadeventObj(x).member;
+		var option = document.createElement("OPTION"),
+			txt = document.createTextNode(N);
+		option.appendChild(txt);
+		eventOption.insertBefore(option, eventOption.lastChild);
+	}	
+}
 
 function cleanlist(){
 	localStorage.clear();
