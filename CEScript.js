@@ -1,5 +1,6 @@
 //window.addEventListener("load", displayCreateEvent, false);
 window.addEventListener("load", displaySignUp, false);
+window.addEventListener("load", EventOption, false);
 // function doFirst(){
 // 	var button = document.getElementById("button");
 // 	button.addEventListener("click", saveCrap, false);
@@ -80,11 +81,12 @@ function save(name, date, starttime, endtime){
 				min = -1;
 			}
 			var timeslots = new Array(2*hrs + min);
-			var eventObj = {name:n, date:d, starttime:st, endtime:et, member:0, slots:timeslots};
+			var eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
 			var str = JSON.stringify(eventObj);
 			size++;
 			localStorage.setItem(size,str);
 			alert("You add an event successfully");
+			console.log(eventObj);//test object
 			loadeventObj(size);
 		}
 		else
@@ -110,7 +112,7 @@ function loadeventObj(n){
 	var storedValue = localStorage.getItem(n);
 	//console.log(storedValue);//test the localStorage;
 	var ob = JSON.parse(storedValue);
-	//console.log(ob.name);//test object name
+	//console.log(ob);//test object name
 	return ob;
 }
 
@@ -142,36 +144,41 @@ function displaySignUp(){
 
 
 function EventOption(){
-	var sel = document.getElementById('eventoption');
-	for(var x=1;x<=localStorage.length;x++){
-		var opt = document.createElement('option');
-		opt.innerHTML = "asdfsdf";
-		opt.value = x;
-		sel.appendChild(opt);
-	}
-	
-	
-	// var N;
-	// var eventOption;
-	// // eventOption +="<option value= '1'>222</option>"
-	// // document.getElementById("eventoption").innerHTML = eventOption;
-	// //var eventOption = document.getElementById("eventoption");
-	// for(var x=1;x<=localStorage.length;x++)
-	// {
-	// 	N = loadeventObj(x).name;
-	// 	//var N = loadeventObj(x).name;
-	// 	// var D = loadeventObj(x).date;
-	// 	// var ST = loadeventObj(x).starttime;
-	// 	// var ET = loadeventObj(x).endtime;
-	// 	// var M = loadeventObj(x).member;
-	// 	// var option = document.createElement("OPTION"),
-	// 	// 	txt = document.createTextNode(N);
-	// 	// option.appendChild(txt);
-	// 	// eventOption.insertBefore(option, eventOption.lastChild);
-	// 	eventOption +="<option value='"+x+"'>"+N+"</option>";
-	// }	
-	// document.getElementById('eventoption').innerHTML = eventOption;
+	var eventOption = "<option value ='0'>select</option>";
+	for(var x=1;x<=localStorage.length;x++)
+	{
+		var N = loadeventObj(x).name;
+		// var D = loadeventObj(x).date;
+		// var ST = loadeventObj(x).starttime;
+		// var ET = loadeventObj(x).endtime;
+		// var M = loadeventObj(x).member;
+		// var option = document.createElement("OPTION"),
+		// 	txt = document.createTextNode(N);
+		// option.appendChild(txt);
+		// eventOption.insertBefore(option, eventOption.lastChild);
+		eventOption +="<option value= '"+x+"'>"+ N +"</option>"
+	}	
+	document.getElementById("eventoption").innerHTML = eventOption;
 }
+
+function Addmember(name,eventoption){
+	var n = document.getElementById(eventoption).value;
+	var storedValue = localStorage.getItem(n);
+	var ob = JSON.parse(storedValue);
+	ob.member += 1;
+	console.log(ob);
+	localStorage.setItem(n,JSON.stringify(ob));
+	displaySignUp();
+}
+// function updatemember(n)
+// {
+
+// }
+// function updateslot()
+// {
+	
+// }
+
 
 function cleanlist(){
 	localStorage.clear();
