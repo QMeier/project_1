@@ -104,6 +104,8 @@ function save(name, date, starttime, endtime){
 	console.log(size);//test size
 	//displaySignUp();
 }
+
+
 function loadeventObj(n){
 	var storedValue = localStorage.getItem(n);
 	//console.log(storedValue);//test the localStorage;
@@ -140,23 +142,35 @@ function displaySignUp(){
 
 
 function EventOption(){
-	//var eventOption = "<option value ='0'>select</option>";
+	var sel = document.getElementById('eventoption');
+	for(var x=1;x<=localStorage.length;x++){
+		var opt = document.createElement('option');
+		opt.innerHTML = "asdfsdf";
+		opt.value = x;
+		sel.appendChild(opt);
+	}
 	
-	// eventOption +="<option value= '1'>222</option>"
-	// document.getElementById("eventoption").innerHTML = eventOption;
-	var eventOption = document.getElementById("eventoption");
-	for(var x=1;x<=localStorage.length;x++)
-	{
-		var N = loadeventObj(x).name;
-		// var D = loadeventObj(x).date;
-		// var ST = loadeventObj(x).starttime;
-		// var ET = loadeventObj(x).endtime;
-		// var M = loadeventObj(x).member;
-		var option = document.createElement("OPTION"),
-			txt = document.createTextNode(N);
-		option.appendChild(txt);
-		eventOption.insertBefore(option, eventOption.lastChild);
-	}	
+	
+	// var N;
+	// var eventOption;
+	// // eventOption +="<option value= '1'>222</option>"
+	// // document.getElementById("eventoption").innerHTML = eventOption;
+	// //var eventOption = document.getElementById("eventoption");
+	// for(var x=1;x<=localStorage.length;x++)
+	// {
+	// 	N = loadeventObj(x).name;
+	// 	//var N = loadeventObj(x).name;
+	// 	// var D = loadeventObj(x).date;
+	// 	// var ST = loadeventObj(x).starttime;
+	// 	// var ET = loadeventObj(x).endtime;
+	// 	// var M = loadeventObj(x).member;
+	// 	// var option = document.createElement("OPTION"),
+	// 	// 	txt = document.createTextNode(N);
+	// 	// option.appendChild(txt);
+	// 	// eventOption.insertBefore(option, eventOption.lastChild);
+	// 	eventOption +="<option value='"+x+"'>"+N+"</option>";
+	// }	
+	// document.getElementById('eventoption').innerHTML = eventOption;
 }
 
 function cleanlist(){
