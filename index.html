@@ -1,9 +1,30 @@
 <html>
 	<head>
-		<title>Calendar</title>
+		<title>Event Tool</title>
+		
+			<h1 id= headline><center>Welcom to the Event Center!</center></h1>
+		
 		<script type="text/javascript" src="CEScript.js"></script>
 		<link rel="stylesheet" type="text/css" href="CalendarStyle.css">
 	</head>	
+
+	<div>
+		<!--
+		<input type="button" value = "Create an event" onclick = "window.open('CreateEvent.html')"/>
+		<input type="button" value = "Sign up an event" onclick = "window.open('SignUp.html')"/>
+		-->
+		<div> 
+			<a href="CreateEvent.html"><button id="button">Create an event</button></a>	
+		</div>
+		<div>
+			<a href="SignUp.html"><button id="button">Sign up an event</button></a>
+		</div>
+		<div>
+			<a href="Status.html"><button id="button">Check events status</button></a>
+		</div>
+			
+	</div>
+
 	<body>
 		<div id ="calendar">
 			<div id ="year-month">
@@ -68,14 +89,7 @@
 					</tr>
 				</table>
 		</div>
-		<div>
-			<!--
-			<input type="button" value = "Create an event" onclick = "window.open('CreateEvent.html')"/>
-			<input type="button" value = "Sign up an event" onclick = "window.open('SignUp.html')"/>
-			-->
-			<a href="CreateEvent.html">Create an event</a>
-			<a href="SignUp.html" id = "sign">Sign up an event</a>
-				
-		</div>
+		
+
 	</body>
 </html>
