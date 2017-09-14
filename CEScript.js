@@ -1,4 +1,5 @@
 window.addEventListener("load", displayCreateEvent, false);
+window.addEventListener("load", displaySignUp, false);
 // function doFirst(){
 // 	var button = document.getElementById("button");
 // 	button.addEventListener("click", saveCrap, false);
@@ -56,15 +57,22 @@ function save(name, date, starttime, endtime){
 	// eventArray.push(eventObj);
 	// localStorage.eventRecord = JSON.stringify(eventArray);
 	var size = localStorage.length;
-	if(n!=(""&&"Enter a name here") && d!="" && st!="" && et!="" && st<et)
+	if(n!="" && n!="Enter a name here" && d!="" && st!="" && et!="" && st<et)
 	{
-		var str = JSON.stringify(eventObj);
-		size++;
-		localStorage.setItem(size,str);
-		alert("You add an event successfully");
-		load(size);
+		if((st[3]=='0'||st[3]=='3') && (et[3]=='0'||et[3]=='3') && st[4]=='0' && et[4]=='0')
+		{
+			var str = JSON.stringify(eventObj);
+			size++;
+			localStorage.setItem(size,str);
+			alert("You add an event successfully");
+			load(size);
+		}
+		else
+		{
+			alert("A single time slot should be 30 minutes.");
+		}
 	}
-	else if(st>=et)
+	else if(st>=et)//(st and et may not be the same day; st and et cannot be 12:12 or)
 	{
 		alert("Please enter a reasonable time!");
 	}
@@ -73,7 +81,7 @@ function save(name, date, starttime, endtime){
 		alert("Please fill out all information.");
 	}
 	document.getElementById('name').value = "Enter a name here";
-	//console.log(size);//test size
+	console.log(size);//test size
 	displaySignUp();
 }
 function load(n){
