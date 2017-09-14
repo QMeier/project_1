@@ -22,7 +22,9 @@ window.addEventListener("load", displaySignUp, false);
 // 		Eventlist.innerHTML += (x+1) + ". Event:" + EN + ". Time:" + D + "<br />";
 // 	}
 // }
-var eventArray = [];
+
+//var eventArray = [];
+
 // function init(){
 // 	if(localStorage.eventRecord)
 // 	{
@@ -53,9 +55,28 @@ function save(name, date, starttime, endtime){
 	var d = document.getElementById(date).value;
 	var st = document.getElementById(starttime).value;
 	var et = document.getElementById(endtime).value;
-	var eventObj = {name:n, date:d, starttime:st, endtime:et, member:0};
+	
+	var hrs = parseInt(et.substring(0, 2)) - parseInt(st.substring(0, 2));
+	var min;
+	if(parseInt(et.substring(4, 6)) > parseInt(st.substring(4, 6)))
+	{
+		min = 1;
+	}
+	else if(parseInt(et.substring(4, 6)) == parseInt(st.substring(4, 6)))
+	{
+		min = 0;		
+	}
+	else
+	{
+		min = -1;
+	}
+	
+	var timeslots = new Array(2*hrs + min);
+
+	var eventObj = {name:n, date:d, starttime:st, endtime:et, member:0, slots:timeslots};
 	// eventArray.push(eventObj);
 	// localStorage.eventRecord = JSON.stringify(eventArray);
+	//console.log(eventObj.name);
 	var size = localStorage.length;
 	if(n!="" && n!="Enter a name here" && d!="" && st!="" && et!="" && st<et)
 	{
@@ -65,7 +86,7 @@ function save(name, date, starttime, endtime){
 			size++;
 			localStorage.setItem(size,str);
 			alert("You add an event successfully");
-			load(size);
+			loadeventObj(size);
 		}
 		else
 		{
@@ -82,29 +103,46 @@ function save(name, date, starttime, endtime){
 	}
 	document.getElementById('name').value = "Enter a name here";
 	console.log(size);//test size
-	displaySignUp();
+	//displaySignUp();
 }
-function load(n){
+function loadeventObj(n){
 	var storedValue = localStorage.getItem(n);
 	console.log(storedValue);//test the localStorage;
-	//var ob = JSON.parse(storedValue);
-	//console.log(name);
-	return storedValue;
+	var ob = JSON.parse(storedValue);
+	console.log(ob.name);
+	return ob;
 }
 
 function displayCreateEvent(){
 	document.getElementById('name').value = "Enter a name here";
 }
+
+
+
+
+
+
+
+
 function displaySignUp(){
 	var Eventlist = document.getElementById('Eventlist');
 	Eventlist.innerHTML = "We are ready have following event(s):" +"<br />";
 	for(var x=1;x<=localStorage.length;x++)
 	{
-		var EN = load(x);
+		var N = loadeventObj(x).name;
+		var D = loadeventObj(x).date;
+		var ST = loadeventObj(x).starttime;
+		var ET = loadeventObj(x).endtime;
+		var M = loadeventObj(x).member;
 
-		Eventlist.innerHTML += x + ". " + EN + "<br />";
+		Eventlist.innerHTML += x + ". Event: " +N+ ". Date: " +D+ ". Time: " +ST+ "-" +ET+ ". Member: " +M+"<br />";
 	}
 }
+
+
+
+
+
 function cleanlist(){
 	localStorage.clear();
 }
