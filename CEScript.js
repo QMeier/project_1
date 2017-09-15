@@ -106,6 +106,8 @@ function save(name, date, starttime, endtime){
 	console.log(size);//test size
 	//displaySignUp();
 }
+
+
 function loadeventObj(n){
 	var storedValue = localStorage.getItem(n);
 	//console.log(storedValue);//test the localStorage;
@@ -143,9 +145,6 @@ function displaySignUp(){
 
 function EventOption(){
 	var eventOption = "<option value ='0'>select</option>";
-	
-	// eventOption +="<option value= '1'>222</option>"
-	
 	for(var x=1;x<=localStorage.length;x++)
 	{
 		var N = loadeventObj(x).name;
@@ -163,12 +162,26 @@ function EventOption(){
 }
 
 function Addmember(name,eventoption){
+	var Student = document.getElementById(name).value;
 	var n = document.getElementById(eventoption).value;
-	var storedValue = localStorage.getItem(n);
-	var ob = JSON.parse(storedValue);
-	ob.member += 1;
-	console.log(ob);
-	localStorage.setItem(n,JSON.stringify(ob));
+	if(Student!="" && n!=0)
+	{
+		var storedValue = localStorage.getItem(n);
+		var ob = JSON.parse(storedValue);
+		ob.member += 1;
+		console.log(ob);
+		localStorage.setItem(n,JSON.stringify(ob));
+		alert("Sign up successfully.");
+		document.getElementById(name).value ="";
+	}
+	else if(n==0)
+	{
+		alert("Please select a event.");
+	}
+	else
+	{
+		alert("Please enter your name.");
+	}
 	displaySignUp();
 }
 // function updatemember(n)
