@@ -10,8 +10,15 @@
 			<section>
 				<p>Your Name: <input type="text" id="name"></p>
 				<p>Choose an Event: <select id="eventoption"></select></p>
+				<p><input type="button" id="nextbutton" value="Check available" onclick="SlotsOption('eventoption');"></p>
+				<p>
+					Choose a Time: 
+					<select id="timeslot">
+						<option value="">--:--</option>
+					</select>
+				</p>
 				<section id ="Eventlist"></section>
-				<p><input type="button" id="button" value="save" onclick="Addmember('name','eventoption');"></p>
+				<p><input type="button" id="button" value="save" onclick="Addmember('name','eventoption', 'timeslot');"></p>
 				<!--
 					<a><input type="button"> href="index.html">Back</a>
 				-->
