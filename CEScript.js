@@ -98,56 +98,82 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 	// var st = document.getElementById(starttime).value;//24 or 12 option
 	// var et = document.getElementById(endtime).value;
 	var tm = document.getElementById(TimeMode).value;
+	var stp = document.getElementById(STP).value;;
+	var etp = document.getElementById(ETP).value;;
 	var SHrs = document.getElementById(SThour).value;
 	var EHrs = document.getElementById(EThour).value;
-	var st;
-	var et;
+	var STM = document.getElementById(STmin).value;
+	var ETM = document.getElementById(ETmin).value;
+	SHrs = parseInt(SHrs);
+	EHrs = parseInt(EHrs);
 	if(tm==12)
-	{
-		if(STP==1 && SHrs ==12)
+	{   
+		if(stp==1 && SHrs == 12)
 		{
-			
+			SHrs = 0;
 		}
-		else if
+		else if(stp==2 && SHrs != 12)
+		{
+			SHrs = SHrs+12;
+		}
+
+		if(etp==1 && EHrs == 12)
+		{
+			EHrs = 0;
+		}
+		else if(etp==2 && EHrs != 12)
+		{
+			EHrs = EHrs+12;
+		}
+	}
+	var st = SHrs.toString();
+	var et = EHrs.toString();
+
+	if(STM == 30)
+	{
+		SHrs = SHrs + 0.5;
+	}
+	if(ETM == 30)
+	{
+		EHrs = EHrs + 0.5;
 	}
 
-
+	if(st<10)
+	{
+		st = '0'+ st + ":" + STM;
+	}
+	else
+	{
+		st = st + ":" + STM;
+	}
+	if(et<10)
+	{	
+		et = '0'+ et + ":" + ETM;
+	}
+	else
+	{
+		et = et + ":" + ETM;
+	}
+	// console.log("ttt");
+	// console.log(st);
+	// console.log(et);
+	// console.log(SHrs);
+	// console.log(EHrs);
+	// console.log("ttt");
 	var size = localStorage.length;
-	if(n!="" && n!="Enter a name here" && d!="" && st!="" && et!="" && st<et)
+	if(n!="" && n!="Enter a name here" && d!="" && SHrs<EHrs)
 	{
-		if((st[3]=='0'||st[3]=='3') && (et[3]=='0'||et[3]=='3') && st[4]=='0' && et[4]=='0')
-		{
-			// var hrs = parseInt(et.substring(0, 2)) - parseInt(st.substring(0, 2));
-			// var min;
-			console.log(parseInt(st.substring(0, 2)));
-			console.log(parseInt(st.substring(3, 5)));
-			if(parseInt(et.substring(3, 5)) > parseInt(st.substring(3, 5)))
-			{
-				min = 1;
-			}
-			else if(parseInt(et.substring(3, 5)) == parseInt(st.substring(3, 5)))
-			{
-				min = 0;		
-			}
-			else
-			{
-				min = -1;
-			}
-			var timeslots = new Array(2*hrs + min);
-			var eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
-			var str = JSON.stringify(eventObj);
-			size++;
-			localStorage.setItem(size,str);
-			alert("You add an event successfully");
-			console.log(eventObj);//test object
-			loadeventObj(size);
-		}
-		else
-		{
-			alert("A single time slot should be 30 minutes.");
-		}
+
+		var timeslots = new Array((EHrs-SHrs)*2);
+		var eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
+		var str = JSON.stringify(eventObj);
+		size++;
+		localStorage.setItem(size,str);
+		alert("You add an event successfully");
+		console.log(eventObj);//test object
+		loadeventObj(size);
 	}
-	else if(st>=et)//(st and et may not be the same day; st and et cannot be 12:12 or)
+	else if(SHrs>=EHrs)//(st and et may not be the same day; st and et cannot be 12:12 or)
 	{
 		alert("Please enter a reasonable time!");
 	}
