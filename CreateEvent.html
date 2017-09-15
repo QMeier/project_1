@@ -13,13 +13,43 @@
 			<section>
 				Name: <input type="text" id="name"><br /><br/>
 				Date: <input type="date" min="2017-09-01" max="2030-09-01" id ="date"/><br /><br/>
-				Start Time: <input type="time" step="1800" id ="starttime"/><br /><br/>
-				End Time: <input type="time" step="1800" id ="endtime"/><br /><br/>
+				<!-- Start Time: <input type="time" step="1800" id ="starttime"/><br /><br/>
+				End Time: <input type="time" step="1800" id ="endtime"/><br /><br/> -->
+				Choose a Time mode: 
+				<select id = "TimeMode" onchange="initialMode();">
+					<option value = "24">24 hour mode</option>
+					<option value = "12">12 hour mode</option>
+				</select>
+				<br /><br/>
+				Start Time: 
+				<select id = "SThour">
+		
+				</select>:
+				<select id = "STmin">
+					<option>00</option>
+					<option>30</option>
+				</select>
+				<select id = "STP">
+					<option value=""></option>
+				</select>
+				<br /><br/>
+				End Time: 
+				<select id = "EThour">
+					
+				</select>:
+				<select id = "ETmin">
+					<option>00</option>
+					<option>30</option>
+				</select>
+				<select id = "ETP">
+					<option value=""></option>
+				</select>
 			</section>
 		</div>
 			<section>
 				<!--save button-->
-				<a><input type="button" id="button" value="save" onclick="save('name','date','starttime', 'endtime');"></a>
+				<!--<a><input type="button" id="button" value="save" onclick="save('name','date','starttime', 'endtime');"></a>-->
+				<a><input type="button" id="button" value="save" onclick="save('name','date','TimeMode','SThour','STmin','STP','EThour','ETmin','ETP');"></a>				
 				<!--change clean button to clean the whole page-->
 				<a><input type="button" id="button" value="clean the list" onclick="cleanlist();"></a>
 				<!--

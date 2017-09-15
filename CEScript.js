@@ -2,6 +2,7 @@
 window.addEventListener("load", displaySignUp, false);
 window.addEventListener("load", EventOption, false);
 window.addEventListener("load", displayCheckstatus, false);
+window.addEventListener("load", initialMode, false);
 // function doFirst(){
 // 	var button = document.getElementById("button");
 // 	button.addEventListener("click", saveCrap, false);
@@ -52,23 +53,72 @@ window.addEventListener("load", displayCheckstatus, false);
 // 	console.log(eventArray);
 // }
 
-function save(name, date, starttime, endtime){
+function ModeControl(mode)
+{
+	if(mode==12)
+	{
+		var STP = "<option value ='1'>AM</option>";
+		STP += "<option value ='2'>PM</option>";
+		var ETP = "<option value ='1'>AM</option>";
+		ETP += "<option value ='2'>PM</option>";
+		document.getElementById("STP").innerHTML = STP;
+		document.getElementById("ETP").innerHTML = ETP;
+		var hour;
+		for(var x=1;x<=12;x++)
+		{
+			hour +="<option value= '"+x+"'>"+ x +"</option>"
+		}	
+		document.getElementById("SThour").innerHTML = hour;
+		document.getElementById("EThour").innerHTML = hour;
+	}
+	else
+	{
+		var P = "<option value =''></option>";
+		document.getElementById("STP").innerHTML = P;
+		document.getElementById("ETP").innerHTML = P;
+		var hour;
+		for(var x=0;x<=23;x++)
+		{
+			hour +="<option value= '"+x+"'>"+ x +"</option>"
+		}	
+		document.getElementById("SThour").innerHTML = hour;
+		document.getElementById("EThour").innerHTML = hour;
+	}
+}
+
+function initialMode()
+{
+	var mode = document.getElementById("TimeMode").value;
+	ModeControl(mode);
+}
+
+function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 	var n = document.getElementById(name).value;
 	var d = document.getElementById(date).value;// min date= now
-	var st = document.getElementById(starttime).value;//24 or 12 option
-	var et = document.getElementById(endtime).value;
-	
-	
-	// eventArray.push(eventObj);
-	// localStorage.eventRecord = JSON.stringify(eventArray);
-	//console.log(eventObj.name);
+	// var st = document.getElementById(starttime).value;//24 or 12 option
+	// var et = document.getElementById(endtime).value;
+	var tm = document.getElementById(TimeMode).value;
+	var SHrs = document.getElementById(SThour).value;
+	var EHrs = document.getElementById(EThour).value;
+	var st;
+	var et;
+	if(tm==12)
+	{
+		if(STP==1 && SHrs ==12)
+		{
+			
+		}
+		else if
+	}
+
+
 	var size = localStorage.length;
 	if(n!="" && n!="Enter a name here" && d!="" && st!="" && et!="" && st<et)
 	{
 		if((st[3]=='0'||st[3]=='3') && (et[3]=='0'||et[3]=='3') && st[4]=='0' && et[4]=='0')
 		{
-			var hrs = parseInt(et.substring(0, 2)) - parseInt(st.substring(0, 2));
-			var min;
+			// var hrs = parseInt(et.substring(0, 2)) - parseInt(st.substring(0, 2));
+			// var min;
 			console.log(parseInt(st.substring(0, 2)));
 			console.log(parseInt(st.substring(3, 5)));
 			if(parseInt(et.substring(3, 5)) > parseInt(st.substring(3, 5)))
