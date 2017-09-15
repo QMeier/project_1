@@ -1,6 +1,7 @@
 //window.addEventListener("load", displayCreateEvent, false);
 window.addEventListener("load", displaySignUp, false);
 window.addEventListener("load", EventOption, false);
+window.addEventListener("load", displayCheckstatus, false);
 // function doFirst(){
 // 	var button = document.getElementById("button");
 // 	button.addEventListener("click", saveCrap, false);
@@ -53,8 +54,8 @@ window.addEventListener("load", EventOption, false);
 
 function save(name, date, starttime, endtime){
 	var n = document.getElementById(name).value;
-	var d = document.getElementById(date).value;
-	var st = document.getElementById(starttime).value;
+	var d = document.getElementById(date).value;// min date= now
+	var st = document.getElementById(starttime).value;//24 or 12 option
 	var et = document.getElementById(endtime).value;
 	
 	
@@ -68,11 +69,13 @@ function save(name, date, starttime, endtime){
 		{
 			var hrs = parseInt(et.substring(0, 2)) - parseInt(st.substring(0, 2));
 			var min;
-			if(parseInt(et.substring(4, 6)) > parseInt(st.substring(4, 6)))
+			console.log(parseInt(st.substring(0, 2)));
+			console.log(parseInt(st.substring(3, 5)));
+			if(parseInt(et.substring(3, 5)) > parseInt(st.substring(3, 5)))
 			{
 				min = 1;
 			}
-			else if(parseInt(et.substring(4, 6)) == parseInt(st.substring(4, 6)))
+			else if(parseInt(et.substring(3, 5)) == parseInt(st.substring(3, 5)))
 			{
 				min = 0;		
 			}
@@ -142,41 +145,120 @@ function displaySignUp(){
 }
 
 
+function displayCheckstatus(){
+	var checkstatus = document.getElementById('checkstatus');
+	checkstatus.innerHTML = "<br />";
+	for(var x=1;x<=localStorage.length;x++)
+	{
+		var N = loadeventObj(x).name;
+		var D = loadeventObj(x).date;
+		var ST = loadeventObj(x).starttime;
+		var ET = loadeventObj(x).endtime;
+		var M = loadeventObj(x).member;
+		var TS = loadeventObj(x).slots;
+		var hr = parseInt(ST.substring(0, 2));
+		var min = parseInt(ST.substring(3, 5));
+		checkstatus.innerHTML += x + ". Event: " +N+ ". Date: " +D+ ". Time: " +ST+ "-" +ET+ ". Member: " +M+ " (include event creator)"+ "<br />";
+		for(var i=0;i<TS.length;i++)
+		{
+			if(min==30)
+			{
+				checkstatus.innerHTML += hr +":30 - " + (hr+1) + ":00 have: " +TS[i]+ " people signed up." + "<br />";
+				min = 0;
+				hr++;
+			}
+			else
+			{
+				checkstatus.innerHTML += hr +":00 - " + hr + ":30 have: " +TS[i]+ " people signed up." + "<br />";
+				min = 30;
+			}
+		}
+	}
+}
+
+
+
 
 function EventOption(){
 	var eventOption = "<option value ='0'>select</option>";
 	for(var x=1;x<=localStorage.length;x++)
 	{
 		var N = loadeventObj(x).name;
-		// var D = loadeventObj(x).date;
-		// var ST = loadeventObj(x).starttime;
-		// var ET = loadeventObj(x).endtime;
-		// var M = loadeventObj(x).member;
-		// var option = document.createElement("OPTION"),
-		// 	txt = document.createTextNode(N);
-		// option.appendChild(txt);
-		// eventOption.insertBefore(option, eventOption.lastChild);
 		eventOption +="<option value= '"+x+"'>"+ N +"</option>"
 	}	
 	document.getElementById("eventoption").innerHTML = eventOption;
 }
 
-function Addmember(name,eventoption){
+function SlotsOption(eventoption){
+	var n = document.getElementById(eventoption).value;
+	if(n>0)
+	{
+		var SlotsOption;		
+		var storedValue = localStorage.getItem(n);//get string event
+		var ob = JSON.parse(storedValue);//get event object
+		var st = ob.starttime;
+		var slotsArray = ob.slots;
+		var hr = parseInt(st.substring(0, 2));
+		var min = parseInt(st.substring(3, 5));
+		console.log(slotsArray);
+		for(var x=0;x<slotsArray.length;x++)
+		{
+			if(min==30)
+			{
+				SlotsOption +="<option value= '"+x+"'>"+ hr +":30"+"</option>"
+				min = 0;
+				hr++;
+			}
+			else
+			{
+				SlotsOption +="<option value= '"+x+"'>"+ hr +":00"+"</option>"
+				min = 30;
+			}
+			slotsArray[x]=0;
+		}	
+		localStorage.setItem(n,JSON.stringify(ob));
+		console.log(localStorage.getItem(n));//test slot array number 
+		document.getElementById("timeslot").innerHTML = SlotsOption;
+	}
+	else
+	{
+		SlotsOption = "<option value =''>--:--</option>";
+		document.getElementById("timeslot").innerHTML = SlotsOption;
+	}
+
+}
+
+function initialtime()
+{
+	var SlotsOption = "<option value =''>--:--</option>";
+	document.getElementById("timeslot").innerHTML = SlotsOption;
+}
+
+
+
+function Addmember(name,eventoption,timeslot){
 	var Student = document.getElementById(name).value;
 	var n = document.getElementById(eventoption).value;
-	if(Student!="" && n!=0)
+	var Slotnumber = document.getElementById(timeslot).value;
+	if(Student!="" && n!=0 && Slotnumber!="")
 	{
 		var storedValue = localStorage.getItem(n);
 		var ob = JSON.parse(storedValue);
 		ob.member += 1;
+		ob.slots[Slotnumber] += 1; 
 		console.log(ob);
 		localStorage.setItem(n,JSON.stringify(ob));
+		console.log(localStorage.getItem(n));
 		alert("Sign up successfully.");
 		document.getElementById(name).value ="";
 	}
 	else if(n==0)
 	{
 		alert("Please select a event.");
+	}
+	else if(Slotnumber=="")
+	{
+		alert("Please select a Time.");
 	}
 	else
 	{
