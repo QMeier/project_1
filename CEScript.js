@@ -157,7 +157,6 @@ function EventOption(){
 }
 
 function SlotsOption(eventoption){
-	//var SlotsOption = "<option value ='0'>--:--</option>";
 	var n = document.getElementById(eventoption).value;
 	if(n>0)
 	{
@@ -194,6 +193,12 @@ function SlotsOption(eventoption){
 		document.getElementById("timeslot").innerHTML = SlotsOption;
 	}
 
+}
+
+function initialtime()
+{
+	var SlotsOption = "<option value =''>--:--</option>";
+	document.getElementById("timeslot").innerHTML = SlotsOption;
 }
 
 
