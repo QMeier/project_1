@@ -1,7 +1,7 @@
 //window.addEventListener("load", displayCreateEvent, false);
 window.addEventListener("load", displaySignUp, false);
 window.addEventListener("load", EventOption, false);
-// window.addEventListener("load", SlotsOption, false);
+window.addEventListener("load", displayCheckstatus, false);
 // function doFirst(){
 // 	var button = document.getElementById("button");
 // 	button.addEventListener("click", saveCrap, false);
@@ -145,6 +145,39 @@ function displaySignUp(){
 }
 
 
+function displayCheckstatus(){
+	var checkstatus = document.getElementById('checkstatus');
+	checkstatus.innerHTML = "<br />";
+	for(var x=1;x<=localStorage.length;x++)
+	{
+		var N = loadeventObj(x).name;
+		var D = loadeventObj(x).date;
+		var ST = loadeventObj(x).starttime;
+		var ET = loadeventObj(x).endtime;
+		var M = loadeventObj(x).member;
+		var TS = loadeventObj(x).slots;
+		var hr = parseInt(ST.substring(0, 2));
+		var min = parseInt(ST.substring(3, 5));
+		checkstatus.innerHTML += x + ". Event: " +N+ ". Date: " +D+ ". Time: " +ST+ "-" +ET+ ". Member: " +M+ " (include event creator)"+ "<br />";
+		for(var i=0;i<TS.length;i++)
+		{
+			if(min==30)
+			{
+				checkstatus.innerHTML += hr +":30 - " + (hr+1) + ":00 have: " +TS[i]+ " people signed up." + "<br />";
+				min = 0;
+				hr++;
+			}
+			else
+			{
+				checkstatus.innerHTML += hr +":00 - " + hr + ":30 have: " +TS[i]+ " people signed up." + "<br />";
+				min = 30;
+			}
+		}
+	}
+}
+
+
+
 
 function EventOption(){
 	var eventOption = "<option value ='0'>select</option>";
@@ -212,8 +245,10 @@ function Addmember(name,eventoption,timeslot){
 		var storedValue = localStorage.getItem(n);
 		var ob = JSON.parse(storedValue);
 		ob.member += 1;
+		ob.slots[Slotnumber] += 1; 
 		console.log(ob);
 		localStorage.setItem(n,JSON.stringify(ob));
+		console.log(localStorage.getItem(n));
 		alert("Sign up successfully.");
 		document.getElementById(name).value ="";
 	}
