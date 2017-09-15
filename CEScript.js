@@ -27,17 +27,6 @@ window.addEventListener("load", initialMode, false);
 // }
 
 //var eventArray = [];
-
-// function init(){
-// 	if(localStorage.eventRecord)
-// 	{
-// 		eventArray = JSON.parse(localStorage.eventRecord);
-// 		for(var i=0;i<eventArray.lengthl;i++)
-// 		{
-
-// 		}
-// 	}
-// }
 // function save(name, year, month, date, time){
 // 	var n = document.getElementById(name).value;
 // 	var y = document.getElementById(year).value;
@@ -95,8 +84,6 @@ function initialMode()
 function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 	var n = document.getElementById(name).value;
 	var d = document.getElementById(date).value;// min date= now
-	// var st = document.getElementById(starttime).value;//24 or 12 option
-	// var et = document.getElementById(endtime).value;
 	var tm = document.getElementById(TimeMode).value;
 	var stp = document.getElementById(STP).value;;
 	var etp = document.getElementById(ETP).value;;
@@ -154,26 +141,33 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 	{
 		et = et + ":" + ETM;
 	}
-	// console.log("ttt");
-	// console.log(st);
-	// console.log(et);
-	// console.log(SHrs);
-	// console.log(EHrs);
-	// console.log("ttt");
 	var size = localStorage.length;
+	var DD = new Date();
+	var currentDate = DD.getDate();
+	var currentMonth = DD.getMonth()+1;
+	var currentYear = DD.getFullYear();
+	var chooseYear = parseInt(d.substring(0, 4));
+	var chooseMonth = parseInt(d.substring(5, 7));
+	var chooseDate = parseInt(d.substring(8, 10));
 	if(n!="" && n!="Enter a name here" && d!="" && SHrs<EHrs)
 	{
-
-		var timeslots = new Array((EHrs-SHrs)*2);
-		var eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
-		var str = JSON.stringify(eventObj);
-		size++;
-		localStorage.setItem(size,str);
-		alert("You add an event successfully");
-		console.log(eventObj);//test object
-		loadeventObj(size);
+		if(currentYear <= chooseYear  && currentMonth <= chooseMonth && currentDate <= chooseDate)
+		{
+			var timeslots = new Array((EHrs-SHrs)*2);
+			var eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
+			var str = JSON.stringify(eventObj);
+			size++;
+			localStorage.setItem(size,str);
+			alert("You add an event successfully");
+			console.log(eventObj);//test object
+			loadeventObj(size);
+		}
+		else
+		{
+			alert("You can't choose a past time!");
+		}
 	}
-	else if(SHrs>=EHrs)//(st and et may not be the same day; st and et cannot be 12:12 or)
+	else if(SHrs>=EHrs)//(st and et may not be the same day;
 	{
 		alert("Please enter a reasonable time!");
 	}
