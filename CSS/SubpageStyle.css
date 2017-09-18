@@ -1,22 +1,6 @@
 #background{
-	background-color: #F5F4D4;
+	background-color: #ff4d4d;
 }
-
-
-
-/*#date{
-	width: 40px;
-	height: 20px;
-	background-color: cornflowerblue;
-	color: #fff;
-	border-radius: 5%;
-	box-shadow:0 4px 4px 0 rgba(50, 50, 50, 0.4);
-}
-#date tr td:hover{
-	background-color: blue
-
-}*/
-
 
 .dropbtn {
 	background-color: #3221E6;
@@ -35,21 +19,21 @@
 	border-radius: 18px;
 	width: 800px;
 	height: 80px;
-	background-color: #E78F1B;
+	background-color: #002b80;
 	color:white;
 	border-radius: 18px;
 	text-align:center;
 }
 
 .text {
-	color:black;
+	color:white;
 	font-size:12px;
 }
 
 #button{
 	width:90px;
 	margin: 15px;
-	background-color: #E09027;
+	background-color: #002b80;
 	line-height: 30px;
 	text-align:center;
 	color:white;
@@ -59,7 +43,7 @@
 	cursor: pointer;
 }
 #button:hover{
-	background-color: #0B08EE;
+	background-color: #6699ff;
 }
 
 #nextbutton{
@@ -79,10 +63,10 @@
 }
 
 #Eventlist{
-	color:black;
+	color:white;
 	font-size:20px;
 }
 #checkstatus{
-	color:black;
+	color:white;
 	font-size:18px;
 }

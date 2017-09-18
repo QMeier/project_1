@@ -10,7 +10,7 @@
 	border-radius: 18px;
 	width: 900px;
 	height: 60px;
-	background-color: #D34D2B;
+	background-color: #ff4d4d;
 	color:white;
 	border-radius: 18px;
 	text-align:center;
@@ -20,7 +20,7 @@
 	width:180px;
 	margin: 25px;
 	-webkit-transition: all .2s;
-	background-color: #4DAA8E;
+	background-color: #ff4d4d;
 	line-height: 50px;
 	text-align:center;
 	color:white;
@@ -31,10 +31,10 @@
 }
 
 #bodytop{
-	background-color: #DAECDC
+	background-color: #002b80
 }
 #button:hover{
-	background-color: #003305
+	background-color: #ff1a1a
 }
 
 #calendar{
