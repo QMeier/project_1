@@ -190,6 +190,10 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 					console.log(eventObj);//test object
 					loadeventObj(size);
 				}
+				else
+				{
+					alert("Please enter a date in the future");
+				}
 			}
 			else
 			{
