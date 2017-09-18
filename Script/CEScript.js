@@ -9,6 +9,13 @@ window.addEventListener("load", initialMode, false);
 
 
 //======The functions for CreatEvent.html Page======
+/*! Name: Mode Control 
+*Scope: CreateEvent
+*Description:  Controls the time mode for event creation between 12 hour notation and 24 hour notation.
+*
+*Pre: Event create page loaded
+*Post: Time mode changes as based on selection of 12 or 24
+*/
 function ModeControl(mode){
 	if(mode==12)
 	{
@@ -40,10 +47,26 @@ function ModeControl(mode){
 		document.getElementById("EThour").innerHTML = hour;
 	}
 }
+
+/*! Name: initialMode 
+*Scope: CreateEvent
+*Description:  Sets the initial time mode of event creation to 24 hour mode
+*
+*Pre: Event create page loaded
+*Post: Time mode initialized to 24 hour mode
+*/
 function initialMode(){
 	var mode = document.getElementById("TimeMode").value;
 	ModeControl(mode);
 }
+
+/*! Name: save
+*Scope: CreateEvent
+*Description:  Saves the input of the created event into a text document in localStorage for recall into event signup and even status checks
+*
+*Pre: Event create page loaded, all event creation inputs filled out according to rules of event signup
+*Post: Event is saved in localStorage in either a new document if document not created or in a previously created event creation document
+*/
 function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 	var n = document.getElementById(name).value;
 	var d = document.getElementById(date).value;// min date= now
@@ -189,14 +212,18 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 }
 //=================================================
 
-
-
-
-
 //======The functions for SignUp.html Page==========
 var keyS = 1;
 var keyE = 1.5;
 var keyT = 0;
+
+/*! Name: displaySignUp
+*Scope: SignUp
+*Description:  Displays the available events for signup by drawing in from the localStorage and displaying on the page
+*		Will show dates and times ranges and amount of people signed up.  Will show nothing if no events available.
+*Pre: Singnup page loaded
+*Post: Any and all created events are listed out for the user to see
+*/
 function displaySignUp(){
 	var Eventlist = document.getElementById('Eventlist');
 	Eventlist.innerHTML = "We are ready have following event(s):" +"<br />"+"<br />";
@@ -213,6 +240,14 @@ function displaySignUp(){
 	sessionStorage.setItem(1.5,"test2");
 	sessionStorage.setItem(0,"test3");
 }
+
+/*! Name: EventOption 
+*Scope: SignUp
+*Description:  Displays the available events for signup by drawing in from the localStorage and displaying in a dropdown list for the user to select to see times available for signup
+*		Will show an empty drop box if no events available.
+*Pre: Singnup page loaded
+*Post: Any and all created events are listed out for the user to see
+*/
 function EventOption(){
 	var eventOption = "<option value ='0'>select</option>";
 	for(var x=1;x<=localStorage.length;x++)
@@ -222,6 +257,14 @@ function EventOption(){
 	}	
 	document.getElementById("eventoption").innerHTML = eventOption;
 }
+
+/*! Name: SlotsOption
+*Scope: SignUp
+*Description:  Displays the available time slots for signing up for an event.  Displays times in 30 minute increments for people to select.
+*		Ex: An event time from 1 - 2:30 will display times 1, 1:30, 2, and 2:30.  User can select one a a time to sign up in that 30 min range.
+*Pre: Singnup page loaded and an event created and selected
+*Post: 30 min signup slot will be selected and used to save signup slots for the event saved in localStorage.
+*/
 function SlotsOption(eventoption){
 	var n = document.getElementById(eventoption).value;
 	if(n>0)
@@ -259,11 +302,25 @@ function SlotsOption(eventoption){
 
 }
 
+/*! Name: initialtime
+*Scope: SignUp
+*Description: Sets the time slot box to --:-- before the box is selected and a time is selected
+*		
+*Pre: Singnup page loaded
+*Post: Signup time box initalized to --:--
+*/
 function initialtime(){
 	var SlotsOption = "<option value =''>--:--</option>";
 	document.getElementById("timeslot").innerHTML = SlotsOption;
 }
 
+/*! Name: Addmember
+*Scope: SignUp
+*Description:  Adds the member to the signup when all boxes are filled out.  The same name cannot be entered twice for an event slot.  Saves signup to the localStorage.
+*		Takes in name of person, event, and event timeslot.		
+*Pre: Singnup page loaded, event loaded, and all boxes filled out or selected correctly.
+*Post: Name added to signup and signup slot updated with new count as well as overall signup count for the event.
+*/
 function Addmember(name,eventoption,timeslot){
 	var Student = document.getElementById(name).value;
 	var n = document.getElementById(eventoption).value;
