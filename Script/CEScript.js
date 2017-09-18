@@ -174,7 +174,7 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 			}
 			else if(currentMonth == chooseMonth)
 			{
-				if(currentDate <= chooseDate)
+				if(currentDate < chooseDate)
 				{
 					var timeslots = new Array((EHrs-SHrs)*2);
 					var eventObj = new Object();
