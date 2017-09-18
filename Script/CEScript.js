@@ -112,9 +112,10 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 	var chooseYear = parseInt(d.substring(0, 4));
 	var chooseMonth = parseInt(d.substring(5, 7));
 	var chooseDate = parseInt(d.substring(8, 10));
-	if(n!="" && n!="Enter a name here" && d!="" && SHrs<EHrs)
+
+	if(n!="" &&  d!="" && SHrs<EHrs)
 	{
-		if(currentYear <= chooseYear  && currentMonth <= chooseMonth && currentDate <= chooseDate)
+		if(currentYear < chooseYear)
 		{
 			var timeslots = new Array((EHrs-SHrs)*2);
 			var eventObj = new Object();
@@ -126,13 +127,55 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 			var str = JSON.stringify(eventObj);
 			size++;
 			localStorage.setItem(size,str);
-			alert("You add an event successfully");
+			alert("You have successfully added an event");
 			console.log(eventObj);//test object
 			loadeventObj(size);
 		}
+		else if (currentYear == chooseYear)
+		{
+			if(currentMonth < chooseMonth)
+			{
+				var timeslots = new Array((EHrs-SHrs)*2);
+				var eventObj = new Object();
+				eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
+				for(var i=0;i<timeslots.length;i++)
+				{
+					timeslots[i]=0;
+				}
+				var str = JSON.stringify(eventObj);
+				size++;
+				localStorage.setItem(size,str);
+				alert("You have successfully added an event");
+				console.log(eventObj);//test object
+				loadeventObj(size);
+			}
+			else if(currentMonth == chooseMonth)
+			{
+				if(currentDate < chooseDate)
+				{
+					var timeslots = new Array((EHrs-SHrs)*2);
+					var eventObj = new Object();
+					eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
+					for(var i=0;i<timeslots.length;i++)
+					{
+						timeslots[i]=0;
+					}
+					var str = JSON.stringify(eventObj);
+					size++;
+					localStorage.setItem(size,str);
+					alert("You have successfully added an event");
+					console.log(eventObj);//test object
+					loadeventObj(size);
+				}
+			}
+			else
+			{
+				alert("Please enter a date in the future");
+			}
+		}
 		else
 		{
-			alert("You can't choose a past time!");
+			alert("Please enter a date in the future");
 		}
 	}
 	else if(SHrs>=EHrs)//(st and et may not be the same day;
@@ -143,7 +186,6 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 	{
 		alert("Please fill out all information.");
 	}
-	document.getElementById('name').value = "Enter a name here";
 }
 //=================================================
 
@@ -216,10 +258,12 @@ function SlotsOption(eventoption){
 	}
 
 }
+
 function initialtime(){
 	var SlotsOption = "<option value =''>--:--</option>";
 	document.getElementById("timeslot").innerHTML = SlotsOption;
 }
+
 function Addmember(name,eventoption,timeslot){
 	var Student = document.getElementById(name).value;
 	var n = document.getElementById(eventoption).value;
@@ -324,6 +368,7 @@ function loadeventObj(n){
 }
 function cleanlist(){
 	localStorage.clear();
+	alert("All Events Deleted!")
 }
 //==================================================
 
@@ -332,41 +377,17 @@ function cleanlist(){
 
 
 
-// function doFirst(){
-// 	var button = document.getElementById("button");
-// 	button.addEventListener("click", saveCrap, false);
-// 	display();
-// }
-// function saveCrap(){
-// 	var name = document.getElementById("name").value;
-// 	sessionStorage.setItem(name,"234");
-// 	document.getElementById('name').value = "";
-// 	display();
-// }
 
-// function display(){
-// 	var Eventlist = document.getElementById("Eventlist");
-// 	Eventlist.innerHTML = "We are ready have following event(s):" +"<br />";
-// 	for(var x=0;x<sessionStorage.length;x++)
-// 	{
-// 		var EN = sessionStorage.key(x);
-// 		var D = sessionStorage.getItem(EN);
-// 		Eventlist.innerHTML += (x+1) + ". Event:" + EN + ". Time:" + D + "<br />";
-// 	}
-// }
 
-//var eventArray = [];
-// function save(name, year, month, date, time){
-// 	var n = document.getElementById(name).value;
-// 	var y = document.getElementById(year).value;
-// 	var m = document.getElementById(month).value;
-// 	var d = document.getElementById(date).value;
-// 	var t = document.getElementById(time).value;
-// 	var eventObj = {name:n, year:y, month:m, date:d, time:t};
-// 	eventArray.push(eventObj);
-// 	localStorage.eventRecord = JSON.stringify(eventArray);
-// 	//var fs = require("fs");
-// 	//fs.writeFile('write.txt',eventObj.name);
-// 	//document.cookie = eventObj.name+"expires=Fri, 18 Dec 2019 UTC; path=/;";
-// 	console.log(eventArray);
-// }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,20 +2,20 @@
 		<center>
 		<head>
 		
-		<title>Create an event</title>
+		<title>Create an Event</title>
 		<link rel="stylesheet" type="text/css" href="../CSS/SubpageStyle.css">
 		<script type="text/javascript" src="../Script/CEScript.js"></script>
 		
 		</head>
 	<body id="background">
 		<div>
-			<h1 class = "centeredtext">Let's create an event</h1>
+			<h1 class = "centeredtext">Create an Event</h1>
 			<section>
 				Name: <input type="text" id="name"><br /><br/>
 				Date: <input type="date" min="2017-09-01" max="2030-09-01" id ="date"/><br /><br/>
 				<!-- Start Time: <input type="time" step="1800" id ="starttime"/><br /><br/>
 				End Time: <input type="time" step="1800" id ="endtime"/><br /><br/> -->
-				Choose a Time mode: 
+				Choose a Time Mode: 
 				<select id = "TimeMode" onchange="initialMode();">
 					<option value = "24">24 hour mode</option>
 					<option value = "12">12 hour mode</option>
@@ -47,15 +47,8 @@
 			</section>
 		</div>
 			<section>
-				<!--save button-->
-				<!--<a><input type="button" id="button" value="save" onclick="save('name','date','starttime', 'endtime');"></a>-->
-				<a><input type="button" id="button" value="save" onclick="save('name','date','TimeMode','SThour','STmin','STP','EThour','ETmin','ETP');"></a>				
-				<!--change clean button to clean the whole page-->
-				<a><input type="button" id="button" value="clean the list" onclick="cleanlist();"></a>
-				<!--
-				<a><input type></a> id="button"><p href="index.html">Back</p></a>
-				-->
-				<a href="../index.html"><button id="button">go back</button></a>	
+				<a><input type="button" id="button" value="Create Event" onclick="save('name','date','TimeMode','SThour','STmin','STP','EThour','ETmin','ETP');"></a>				
+				<a href="../index.html"><button id="button">Go Back</button></a>	
 				
 			</section>
 		</div>
