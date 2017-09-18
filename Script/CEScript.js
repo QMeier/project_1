@@ -212,6 +212,7 @@ function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
 }
 //=================================================
 
+
 //======The functions for SignUp.html Page==========
 var keyS = 1;
 var keyE = 1.5;
@@ -376,11 +377,14 @@ function Addmember(name,eventoption,timeslot){
 //==================================================
 
 
-
-
-
 //======The Functions for CheckEvent.html page======
-// Add a drop down box to choose 12 or 24 mode
+/*! Name: displayCheckstatus
+*Scope: CheckEvent
+*Description:  Loads in all events created so far and shows the amount of people signed up for each event.  Breaks down each event into 30 minute blocks to show specifics of 
+*		when people have signed up.
+*Pre: Check event page loaded
+*Post: Displays information for any and all events created so far. 
+*/
 function displayCheckstatus(){
 	var checkstatus = document.getElementById('checkstatus');
 	checkstatus.innerHTML = "All times shown below are based on 24 hrs format."+"<br />"+"<br />";
@@ -414,15 +418,27 @@ function displayCheckstatus(){
 //==================================================
 
 
-
-
-
 //=====The functions for other function or test=====
+/*! Name: LoadeventObj
+*Scope: Extra
+*Description:  Uses JSON to load in event object from localStorage
+*			
+*Pre: event object created and stored in localStorage
+*Post: event object returned to calling function
+*/
 function loadeventObj(n){
 	var storedValue = localStorage.getItem(n);
 	var ob = JSON.parse(storedValue);
 	return ob;
 }
+
+/*! Name: cleanlist
+*Scope: Extra
+*Description:  Deletes all created events from localStorage
+*			
+*Pre: None/events created
+*Post: event objects deleted
+*/
 function cleanlist(){
 	localStorage.clear();
 	alert("All Events Deleted!")
