@@ -14,10 +14,18 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.use('/static',express.static(__dirname + '/CSS'));
-app.use('/static',express.static(__dirname + '/HTML'));
-app.use('/static',express.static(__dirname + '/Script'));
-app.use('/static',express.static(__dirname + '/Image'));
+app.use('/CSS',express.static(__dirname + '/CSS'));
+app.use('/HTML',express.static(__dirname + '/HTML'));
+app.use('/Script',express.static(__dirname + '/Script'));
+app.use('/assets',express.static(__dirname + '/Image'));
+console.log(app.routes)
+
+// app.get('//HTML/CreateEvent.html', function (req, res,next) {
+//    res.sendFile(path.join(__dirname + "/admin.html"));
+//    app.use(function(req, res, next) {
+//       next();
+//    });
+// })
 
 var Airtable = require('airtable');
 Airtable.configure({
