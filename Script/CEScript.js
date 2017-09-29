@@ -474,20 +474,14 @@ base('Events').select({
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+* @Function backButton()
+*
+* @description this function takes the user back to the homepage. Technically it takes them to the last page they were on,
+* but since this button only appears on sidepages and the sidepages don't point to each other, it functionally takes the user
+* back to the homepage.
+*
+*/
+function backButton() {
+    window.history.back();
+}
