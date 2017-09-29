@@ -30,7 +30,7 @@
 	font-size:12px;
 }
 
-#button{
+.button{
 	width:90px;
 	margin: 15px;
 	background-color: #092b5b;
@@ -43,7 +43,7 @@
 	cursor: pointer;
 	padding: 1px 2px;
 }
-#button:hover{
+.button:hover{
 	background-color: #09738b;
 }
 

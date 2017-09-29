@@ -1,27 +1,26 @@
 <html>
 	<head>
 		<title>Event Tool</title>
-			<center>
-				<img id="picEvents" src="Image/Events.gif"></html>
-				<h1 id= headline center>Welcome to the Event Center!</h1>
-			</center>
 		<script type="text/javascript" src="./Script/CEScript.js"></script>
 		<link rel="stylesheet" type="text/css" href="CSS/CalendarStyle.css">
 	</head>	
 
 
 	<body id="bodytop">
-
-		<ul> 
+		<div id="header">
 			<center>
-						<a href="HTML/CreateEvent.html"><button id="button">Create an Event</button></a>	
-				
-						<a href="HTML/SignUp.html"><button id="button">Sign Up for an Event</button></a>
-				
-						<a href="HTML/CheckEvent.html"><button id="button">Check Status of Events</button></a>
-						
-						<a><input type="button" id="button" value="Clear List of Events" onclick="cleanlist();"></a>
-				
+				<h1 id="headline" center>Welcome to the Event Center!</h1>
 			</center>
-		</ul>
+		</div>
+		<div id="buttonlinks">
+			<center> 
+						<a href="HTML/CreateEvent.html"><button class="button">Create an Event</button></a>	
+				
+						<a href="HTML/SignUp.html"><button class="button">Sign Up for an Event</button></a>
+				
+						<a href="HTML/CheckEvent.html"><button class="button">Check Status of Events</button></a>
+						
+						<a><input type="button" class="button" value="Clear List of Events" onclick="cleanlist();"></a>
+			</center>
+		</div>
 	</body>
