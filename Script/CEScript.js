@@ -67,16 +67,16 @@ function initialMode(){
 *Pre: Event create page loaded, all event creation inputs filled out according to rules of event signup
 *Post: Event is saved in localStorage in either a new document if document not created or in a previously created event creation document
 */
-function save(name, date, TimeMode, SThour, STmin, STP, EThour, ETmin , ETP){
-	var n = document.getElementById(name).value;
-	var d = document.getElementById(date).value;// min date= now
-	var tm = document.getElementById(TimeMode).value;
-	var stp = document.getElementById(STP).value;;
-	var etp = document.getElementById(ETP).value;;
-	var SHrs = document.getElementById(SThour).value;
-	var EHrs = document.getElementById(EThour).value;
-	var STM = document.getElementById(STmin).value;
-	var ETM = document.getElementById(ETmin).value;
+function save(){
+	var n = document.getElementById('name').value;
+	var d = document.getElementById('date').value;// min date= now
+	var tm = document.getElementById('TimeMode').value;
+	var stp = document.getElementById('STP').value;;
+	var etp = document.getElementById('ETP').value;;
+	var SHrs = document.getElementById('SThour').value;
+	var EHrs = document.getElementById('EThour').value;
+	var STM = document.getElementById('STmin').value;
+	var ETM = document.getElementById('ETmin').value;
 	SHrs = parseInt(SHrs);
 	EHrs = parseInt(EHrs);
 	if(tm==12)
@@ -449,6 +449,7 @@ function cleanlist(){
 	alert("All Events Deleted!")
 }
 //==================================================
+
 
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyz6nhx5XT4NyMUp'}).base('appuylohYBJd0KPTw');
