@@ -17,6 +17,7 @@ app.get('/', function(req, res) {
 app.use('/CSS',express.static(__dirname + '/CSS'));
 app.use('/HTML',express.static(__dirname + '/HTML'));
 app.use('/Script',express.static(__dirname + '/Script'));
+app.use('/models',express.static(__dirname + '/models'));
 app.use('/assets',express.static(__dirname + '/Image'));
 console.log(app.routes)
 
@@ -33,6 +34,18 @@ Airtable.configure({
     apiKey: 'keyz6nhx5XT4NyMUp'
 });
 var base = Airtable.base('appuylohYBJd0KPTw');
+
+app.post("/create", function(req,res,next){
+   base('Events').create({
+     "Name": req.body.Name,
+     "Date": req.body.Date,
+     "People": req.body.People,
+     "Blocks": req.body.Blocks
+   }, function(err, record) {
+         if (err) { console.error(err); return; }
+         res.send(record)
+      });
+})
 
 var port = 8080
 app.listen(port);

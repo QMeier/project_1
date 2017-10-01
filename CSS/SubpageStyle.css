@@ -76,3 +76,7 @@ ul {
 	
     -webkit-padding-start: 0px;
 }
+
+.time-selector {
+	line-height: 30px
+}

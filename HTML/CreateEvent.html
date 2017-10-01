@@ -5,7 +5,9 @@
 		<title>Create an Event</title>
 		<link rel="stylesheet" type="text/css" href="../CSS/SubpageStyle.css">
 		<script type="text/javascript" src="../Script/CEScript.js"></script>
-		
+		<script type="text/javascript" src="../Script/converter.js"></script>
+		<script type="text/javascript" src="../Script/jquery.min.js"></script>
+		<script type="text/javascript" src="../models/event.js"></script>
 		</head>
 	<body id="background">
 		<div>
@@ -21,30 +23,9 @@
 					<option value = "12">12 hour mode</option>
 				</select>
 				<br /><br/>
-				Start Time: 
-				<select id = "SThour">
-		
-				</select>:
-				<select id = "STmin">
-					<option>00</option>
-					<option>30</option>
-				</select>
-				<select id = "STP">
-					<option value=""></option>
-				</select>
-				<br /><br/>
-				End Time: 
-				<select id = "EThour">
-					
-				</select>:
-				<select id = "ETmin">
-					<option>00</option>
-					<option>30</option>
-				</select>
-				<select id = "ETP">
-					<option value=""></option>
-				</select>
 			</section>
+		</div>
+		<div id='time-selector' class='time-selector'>
 		</div>
 			<section>
 				<a><input type="button" class="button" value="Create Event" onclick="save('name','date','TimeMode','SThour','STmin','STP','EThour','ETmin','ETP');"></a>				

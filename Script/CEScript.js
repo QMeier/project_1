@@ -5,6 +5,8 @@ window.addEventListener("load", displayCheckstatus, false);
 window.addEventListener("load", initialMode, false);
 //=================================================
 
+var militaryTime = false
+
 
 
 
@@ -16,35 +18,38 @@ window.addEventListener("load", initialMode, false);
 *Pre: Event create page loaded
 *Post: Time mode changes as based on selection of 12 or 24
 */
+
+var buildCheckBoxes = function(index){
+	var container = document.getElementById('time-selector')
+	if(militaryTime){
+		container.style.width = '330px'
+	}
+	else {
+		container.style.width = '370px'
+	}
+	$('#time-selector').empty()
+	for(var i=0;i<48;i++){
+		var label = document.createElement('label')
+		label.innerHTML = blocksConversion(i)
+		var box = document.createElement('input')
+		box.setAttribute('value',i)
+		box.setAttribute('id','block-'+i)
+		box.setAttribute('type','checkbox')
+		label.appendChild(box)
+		container.appendChild(label)
+	}
+}
+
 function ModeControl(mode){
 	if(mode==12)
 	{
-		var STP = "<option value ='1'>AM</option>";
-		STP += "<option value ='2'>PM</option>";
-		var ETP = "<option value ='1'>AM</option>";
-		ETP += "<option value ='2'>PM</option>";
-		document.getElementById("STP").innerHTML = STP;
-		document.getElementById("ETP").innerHTML = ETP;
-		var hour;
-		for(var x=1;x<=12;x++)
-		{
-			hour +="<option value= '"+x+"'>"+ x +"</option>"
-		}	
-		document.getElementById("SThour").innerHTML = hour;
-		document.getElementById("EThour").innerHTML = hour;
+		militaryTime = false
+		buildCheckBoxes(0)
 	}
 	else
 	{
-		var P = "<option value =''></option>";
-		document.getElementById("STP").innerHTML = P;
-		document.getElementById("ETP").innerHTML = P;
-		var hour;
-		for(var x=0;x<=23;x++)
-		{
-			hour +="<option value= '"+x+"'>"+ x +"</option>"
-		}	
-		document.getElementById("SThour").innerHTML = hour;
-		document.getElementById("EThour").innerHTML = hour;
+		militaryTime = true
+		buildCheckBoxes(0)
 	}
 }
 
@@ -70,64 +75,6 @@ function initialMode(){
 function save(){
 	var n = document.getElementById('name').value;
 	var d = document.getElementById('date').value;// min date= now
-	var tm = document.getElementById('TimeMode').value;
-	var stp = document.getElementById('STP').value;;
-	var etp = document.getElementById('ETP').value;;
-	var SHrs = document.getElementById('SThour').value;
-	var EHrs = document.getElementById('EThour').value;
-	var STM = document.getElementById('STmin').value;
-	var ETM = document.getElementById('ETmin').value;
-	SHrs = parseInt(SHrs);
-	EHrs = parseInt(EHrs);
-	if(tm==12)
-	{   
-		if(stp==1 && SHrs == 12)
-		{
-			SHrs = 0;
-		}
-		else if(stp==2 && SHrs != 12)
-		{
-			SHrs = SHrs+12;
-		}
-
-		if(etp==1 && EHrs == 12)
-		{
-			EHrs = 0;
-		}
-		else if(etp==2 && EHrs != 12)
-		{
-			EHrs = EHrs+12;
-		}
-	}
-	var st = SHrs.toString();
-	var et = EHrs.toString();
-
-	if(STM == 30)
-	{
-		SHrs = SHrs + 0.5;
-	}
-	if(ETM == 30)
-	{
-		EHrs = EHrs + 0.5;
-	}
-
-	if(st<10)
-	{
-		st = '0'+ st + ":" + STM;
-	}
-	else
-	{
-		st = st + ":" + STM;
-	}
-	if(et<10)
-	{	
-		et = '0'+ et + ":" + ETM;
-	}
-	else
-	{
-		et = et + ":" + ETM;
-	}
-	var size = localStorage.length;
 	var DD = new Date();
 	var currentDate = DD.getDate();
 	var currentMonth = DD.getMonth()+1;
@@ -135,101 +82,57 @@ function save(){
 	var chooseYear = parseInt(d.substring(0, 4));
 	var chooseMonth = parseInt(d.substring(5, 7));
 	var chooseDate = parseInt(d.substring(8, 10));
-
-	if(n!="" &&  d!="" && SHrs<EHrs)
-	{
-		if(currentYear < chooseYear)
-		{
-			var timeslots = new Array((EHrs-SHrs)*2);
-			var eventObj = new Object();
-			eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
-			for(var i=0;i<timeslots.length;i++)
-			{
-				timeslots[i]=0;
+	var blocks = ''
+	//Check inputs
+	if(!n){
+		return console.log('ERROR: missing event name')
+	}
+	if(!d){
+		return console.log('ERROR: missing event date')
+	}
+	for(var i=0;i<48;i++){
+		var box = document.getElementById('block-'+i)
+		if(box.checked){
+			if(blocks == ''){
+				blocks = box.value
 			}
-			var str = JSON.stringify(eventObj);
-			size++;
-			localStorage.setItem(size,str);
-			alert("You have successfully added an event");
-			console.log(eventObj);//test object
-			loadeventObj(size);
-		}
-		else if (currentYear == chooseYear)
-		{
-			if(currentMonth < chooseMonth)
-			{
-				var timeslots = new Array((EHrs-SHrs)*2);
-				var eventObj = new Object();
-				eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
-				for(var i=0;i<timeslots.length;i++)
-				{
-					timeslots[i]=0;
-				}
-				var str = JSON.stringify(eventObj);
-				size++;
-				localStorage.setItem(size,str);
-				alert("You have successfully added an event");
-				console.log(eventObj);//test object
-				loadeventObj(size);
-			}
-			else if(currentMonth == chooseMonth)
-			{
-				if(currentDate < chooseDate)
-				{
-					var timeslots = new Array((EHrs-SHrs)*2);
-					var eventObj = new Object();
-					eventObj = {name:n, date:d, starttime:st, endtime:et, member:1, slots:timeslots};
-					for(var i=0;i<timeslots.length;i++)
-					{
-						timeslots[i]=0;
-					}
-					var str = JSON.stringify(eventObj);
-					size++;
-					localStorage.setItem(size,str);
-					alert("You have successfully added an event");
-					console.log(eventObj);//test object
-					loadeventObj(size);
-				}
-				else
-				{
-					alert("Please enter a date in the future");
-				}
-			}
-			else
-			{
-				alert("Please enter a date in the future");
+			else{
+				blocks = blocks + ',' + box.value
 			}
 		}
-		else
-		{
-			alert("Please enter a date in the future");
-		}
 	}
-	else if(SHrs>=EHrs)//(st and et may not be the same day;
-	{
-		alert("Please enter a reasonable time!");
+	if(blocks == '') {
+		return console.log('ERROR: no times selected')
 	}
-	else
-	{
-		alert("Please fill out all information.");
-	}
-	document.getElementById('name').value = "";
+	var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__')	
+	$.ajax({
+      url: '/create',
+      method: 'POST',
+      data: JSON.stringify(event),
+      contentType: 'application/json',
+      dataType: "json",
+      success: function(data){
+         console.log("success")
+         $('#existing-events-container').empty()
+         getEvents()
+      },
+   })
 }
-//=================================================
+// //=================================================
 
 
-//======The functions for SignUp.html Page==========
-var keyS = 1;
-var keyE = 1.5;
-var keyT = 0;
+// //======The functions for SignUp.html Page==========
+// var keyS = 1;
+// var keyE = 1.5;
+// var keyT = 0;
 
-/** Name: displaySignUp
-*Scope: SignUp
-*Description:  Displays the available events for signup by drawing in from the localStorage and displaying on the page
-*		Will show dates and times ranges and amount of people signed up.  Will show nothing if no events available.
-*Pre: Singnup page loaded
-*Post: Any and all created events are listed out for the user to see
-*/
+// /** Name: displaySignUp
+// *Scope: SignUp
+// *Description:  Displays the available events for signup by drawing in from the localStorage and displaying on the page
+// *		Will show dates and times ranges and amount of people signed up.  Will show nothing if no events available.
+// *Pre: Singnup page loaded
+// *Post: Any and all created events are listed out for the user to see
+// */
 function displaySignUp(){
 	var Eventlist = document.getElementById('Eventlist');
 	Eventlist.innerHTML = "We are ready have following event(s):" +"<br />"+"<br />";
@@ -449,30 +352,6 @@ function cleanlist(){
 	alert("All Events Deleted!")
 }
 //==================================================
-
-
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyz6nhx5XT4NyMUp'}).base('appuylohYBJd0KPTw');
-
-base('Events').select({
-    // Selecting the first 3 records in Grid view:
-    maxRecords: 3,
-    view: "Grid view"
-}).eachPage(function page(records, fetchNextPage) {
-    // This function (`page`) will get called for each page of records.
-
-    records.forEach(function(record) {
-        console.log('Retrieved', record.get('Name'));
-    });
-
-    // To fetch the next page of records, call `fetchNextPage`.
-    // If there are more records, `page` will get called again.
-    // If there are no more records, `done` will get called.
-    fetchNextPage();
-
-}, function done(err) {
-    if (err) { console.error(err); return; }
-});
 
 
 /**
