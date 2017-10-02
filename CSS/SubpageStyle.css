@@ -78,5 +78,12 @@ ul {
 }
 
 .time-selector {
-	line-height: 30px
+	line-height: 30px;
 }
+#amountOfTasks{
+	
+	float: left;
+	margin-left: 150 px;
+	
+}
+

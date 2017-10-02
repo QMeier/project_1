@@ -13,6 +13,15 @@
 		<div>
 			<h1 class = "centeredtext">Create an Event</h1>
 			<section>
+			<amountOfTasks>List of the Tasks:
+			
+				<ul id = "TaskList1">
+				
+				
+				</ul>
+			
+			
+			</amountOfTasks>
 				Name: <input type="text" id="name"><br /><br/>
 				Date: <input type="date" min="2017-09-01" max="2030-09-01" id ="date"/><br /><br/>
 				<!-- Start Time: <input type="time" step="1800" id ="starttime"/><br /><br/>
@@ -34,7 +43,7 @@
 			Tasks: <input type="text" id="TaskList">
 			<a><input type="button" class="button" value="Save Task" onclick="saveNewTask(taskItem);"></a>
 			
-			
+
 			
 			<section>
 				<a><input type="button" class="button" value="Create Event" onclick="save('name','date','TimeMode','SThour','STmin','STP','EThour','ETmin','ETP');"></a>
