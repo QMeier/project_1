@@ -161,3 +161,11 @@ function save(){
 function backButton() {
     window.history.back();
 }
+
+
+
+function saveNewTask(taskItem){
+	
+		var newTask =  document.getElementById("Add Task").value;
+	
+}

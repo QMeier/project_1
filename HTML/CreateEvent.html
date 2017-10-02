@@ -16,6 +16,9 @@
 				Event Name: <input type="text" id="name"><br /><br/>
 				<!-- Start Time: <input type="time" step="1800" id ="starttime"/><br /><br/>
 				End Time: <input type="time" step="1800" id ="endtime"/><br /><br/> -->
+				
+				
+
 				Choose a Time Mode: 
 				<select id = "TimeMode" onchange="initialMode();">
 					<option value = "24">24 hour mode</option>
@@ -27,11 +30,14 @@
 		<div id='time-select-module'>
 		</div>
 		<button class="button" id="add-date" onclick="buildDateModule()">Add Another Date</button>
+		Tasks: <input type="text" id="TaskList">
+		<a><input type="button" class="button" value="Save Task" onclick="saveNewTask(taskItem);"></a>
 		<section>
 			<a><input type="button" class="button" value="Create Event" onclick="save();"></a>				
 			<button class="button" onclick="backButton()">Go Back</button>
 			
 		</section>
+		
 		</div>
 	</body>
 </center>
