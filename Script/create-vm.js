@@ -128,11 +128,11 @@ function backButton() {
 
 
 
-function saveNewTask(taskItem){
+function saveNewTask(){
 	
 	
 		var node = document.createElement("div");
-		var newTask =  document.getElementById("Save Task").value;
+		var newTask =  document.getElementById("Save Task");
 		var textnode = document.createTextNode(newTask);
 		node.appendChild(textnode);
 		document.getElementById("TaskList1").appendChild(node);
