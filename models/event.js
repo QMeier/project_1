@@ -1,7 +1,5 @@
-function Event(name, date, blocks, people, timedate) {
+function Event(name, people, timedate) {
   this.Name = name;
-  this.Date = date;
-  this.Blocks = blocks;
   this.People = people;
   this.TimesObjects = timedate;
 }

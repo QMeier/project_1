@@ -33,7 +33,7 @@ function buildDateModule() {
 	input.setAttribute("type","date");
 	input.setAttribute("min","2017-09-01");
 	input.setAttribute("max","2030-09-01");
-	input.setAttribute("id","date");
+	input.setAttribute("id","date-"+numDates);
 	paragraph.appendChild(input);
 	paragraph.appendChild(document.createElement("BR"));
 	
@@ -108,15 +108,30 @@ function ModeControl(mode){
 */
 function save(){
    var n = document.getElementById('name').value;
-   var d = document.getElementById('date').value;// min date= now
+   var d = [];// array for objects with dates and blocks
    var DD = new Date();
    var currentDate = DD.getDate();
    var currentMonth = DD.getMonth()+1;
    var currentYear = DD.getFullYear();
-   var chooseYear = parseInt(d.substring(0, 4));
-   var chooseMonth = parseInt(d.substring(5, 7));
-   var chooseDate = parseInt(d.substring(8, 10));
-   var blocks = ''
+   var blocks = [];
+   
+   //populate dates array with all the dates
+   for(let i=0;i<numDates;i++)
+   {
+	   let temp = {};
+	   temp.date = document.getElementById("date-"+i).value;
+	   
+	   //initialize blocks to be empty array before looking at what blocks are checked
+	   temp.blocks = [12,13,14,20,21];
+	   console.log(temp);
+	   d.push(temp);
+   }
+   
+   
+   /*var chooseYear = parseInt(d[0]["date"].substring(0, 4));
+   var chooseMonth = parseInt(d[0]["date"].substring(5, 7));
+   var chooseDate = parseInt(d[0]["date"].substring(8, 10));
+
    //Check inputs
    if(!n){
       return console.log('ERROR: missing event name')
@@ -124,6 +139,8 @@ function save(){
    if(!d){
       return console.log('ERROR: missing event date')
    }
+   
+   
    for(var i=0;i<48;i++){
       var box = document.getElementById('block-'+i)
       if(box.checked){
@@ -134,11 +151,11 @@ function save(){
             blocks = blocks + ',' + box.value
          }
       }
-   }
-   if(blocks == '') {
+   }*/
+   if((d[0].blocks).length == 0) {
       return console.log('ERROR: no times selected')
    }
-   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '[{"date":'+d+',"blocks":['+blocks+']}]')  
+   var event = new Event(n, 'John Gibbons,'+JSON.stringify(d),JSON.stringify(d))  
    $.ajax({
       url: '/create',
       method: 'POST',
@@ -146,7 +163,7 @@ function save(){
       contentType: 'application/json',
       dataType: "json",
       success: function(data){
-        window.history.back();
+        backButton();
       },
    })
 }
