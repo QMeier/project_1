@@ -80,3 +80,7 @@ ul {
 .time-selector {
 	line-height: 30px
 }
+
+#add-date {
+	width: 150px;
+}

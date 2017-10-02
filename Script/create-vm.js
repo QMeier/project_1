@@ -1,5 +1,6 @@
 window.addEventListener("load", initialMode, false);
 var militaryTime = false
+var numDates = 0;
 /** Name: initialMode 
 *Scope: CreateEvent
 *Description:  Sets the initial time mode of event creation to 24 hour mode
@@ -9,6 +10,7 @@ var militaryTime = false
 */
 function initialMode(){
    var mode = document.getElementById("TimeMode").value;
+   numDates = 0;
    ModeControl(mode);
 }
 
@@ -36,13 +38,14 @@ function buildDateModule() {
 	paragraph.appendChild(document.createElement("BR"));
 	
 	//build div to hold the checkboxes
-	checkboxdiv.setAttribute("id","time-selector-");
+	checkboxdiv.setAttribute("id","time-selector-"+numDates);
 	checkboxdiv.setAttribute("class","time-selector");
 	
 	module.appendChild(paragraph);
 	module.appendChild(checkboxdiv);
 	
-	buildCheckBoxes(0);
+	buildCheckBoxes(numDates);
+	numDates++;
 }
 
 /** Name: buildCheckBoxes
