@@ -17,6 +17,9 @@
 				Date: <input type="date" min="2017-09-01" max="2030-09-01" id ="date"/><br /><br/>
 				<!-- Start Time: <input type="time" step="1800" id ="starttime"/><br /><br/>
 				End Time: <input type="time" step="1800" id ="endtime"/><br /><br/> -->
+				
+				
+
 				Choose a Time Mode: 
 				<select id = "TimeMode" onchange="initialMode();">
 					<option value = "24">24 hour mode</option>
@@ -27,8 +30,15 @@
 		</div>
 		<div id='time-selector' class='time-selector'>
 		</div>
+		
+			Tasks: <input type="text" id="TaskList">
+			<a><input type="button" class="button" value="Save Task" onclick="saveNewTask(taskItem);"></a>
+			
+			
+			
 			<section>
-				<a><input type="button" class="button" value="Create Event" onclick="save('name','date','TimeMode','SThour','STmin','STP','EThour','ETmin','ETP');"></a>				
+				<a><input type="button" class="button" value="Create Event" onclick="save('name','date','TimeMode','SThour','STmin','STP','EThour','ETmin','ETP');"></a>
+				
 				<button class="button" onclick="backButton()">Go Back</button>
 				
 			</section>

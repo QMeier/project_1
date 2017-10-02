@@ -109,10 +109,11 @@ function initialtime(){
 *Pre: Singnup page loaded, event loaded, and all boxes filled out or selected correctly.
 *Post: Name added to signup and signup slot updated with new count as well as overall signup count for the event.
 */
-function Addmember(name,eventoption,timeslot){
+function Addmember(name,eventoption,timeslot,tasksAll){
    var Student = document.getElementById(name).value;
    var n = document.getElementById(eventoption).value;
    var Slotnumber = document.getElementById(timeslot).value;
+   var listItem = document.getElementById(TaskList).value;
 
    if(Student!="" && n!=0 && Slotnumber!="")
    {
@@ -180,3 +181,5 @@ function loadeventObj(n){
 function backButton() {
     window.history.back();
 }
+
+
