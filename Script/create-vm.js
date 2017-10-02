@@ -102,7 +102,7 @@ function save(){
    if(blocks == '') {
       return console.log('ERROR: no times selected')
    }
-   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__')  
+   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '{"'+d+'":['+blocks+']}')  
    $.ajax({
       url: '/create',
       method: 'POST',
@@ -110,7 +110,7 @@ function save(){
       contentType: 'application/json',
       dataType: "json",
       success: function(data){
-         console.log("success")
+        window.history.back();
       },
    })
 }

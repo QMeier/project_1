@@ -40,7 +40,8 @@ app.post("/create", function(req,res,next){
      "Name": req.body.Name,
      "Date": req.body.Date,
      "People": req.body.People,
-     "Blocks": req.body.Blocks
+     "Blocks": req.body.Blocks,
+	 "Times-Objects": req.body.TimesObjects
    }, function(err, record) {
          if (err) { console.error(err); return; }
          res.send(record)
