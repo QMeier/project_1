@@ -1,5 +1,9 @@
 window.addEventListener("load", initialMode, false);
 var militaryTime = false
+
+var allTheTasks = [];
+var numberOfItems = 0;
+var listItems =1;
 /** Name: initialMode 
 *Scope: CreateEvent
 *Description:  Sets the initial time mode of event creation to 24 hour mode
@@ -130,11 +134,15 @@ function backButton() {
 
 function saveNewTask(){
 	
-	
-		var node = document.createElement("div");
-		var newTask =  document.getElementById("Save Task");
-		var textnode = document.createTextNode(newTask);
+
+		var node = document.createElement("ul");
+		var newTask =  document.getElementById("TaskList").value;
+		allTheTasks[numberOfItems] = newTask;
+		newTask = listItems + "- " + newTask;
+		var textnode = document.createTextNode(newTask);    //instead of node create an li to create the table method
 		node.appendChild(textnode);
 		document.getElementById("TaskList1").appendChild(node);
+		listItems++;
+		numberOfItems++;		
 	
 }
