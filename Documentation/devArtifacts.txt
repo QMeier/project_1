@@ -1,0 +1,7 @@
+Our development artifacts, including our product backlog and meeting log, for this project can be found on our
+Trello board for the project (Link:"https://trello.com/b/wAVYijOL/project-2"). Trello organizes "boards" (the level
+of the entire project), into lists of cards. For our project, this includes the lists titled "Product Backlog", "Team Meeting Log",
+as well as others for our own use ("To Do", "Doing", "Done"). Any of the cards within the lists can be interacted with simply by
+clicking. On each of the cards in the product backlog, we have a color tag indicating the status of the feature and a description
+that can be viewed by clicking on the card. Similarly, for our team meeting log, we have given the cards titles specifying the Date
+and time of the meeting with additional details and information in the description of the card. 
