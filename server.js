@@ -33,14 +33,13 @@ Airtable.configure({
     endpointUrl: 'https://api.airtable.com',
     apiKey: 'key3aAov6nCuefMUX'
 });
-var base = Airtable.base('appuylohYBJd0KPTw');
+var base = Airtable.base('appv0XuVYZCSh5sX0');
 
 app.post("/create", function(req,res,next){
    base('Events').create({
      "Name": req.body.Name,
-     "Date": req.body.Date,
      "People": req.body.People,
-     "Blocks": req.body.Blocks
+	 "Times": req.body.TimesObjects
    }, function(err, record) {
          if (err) { console.error(err); return; }
          res.send(record)
