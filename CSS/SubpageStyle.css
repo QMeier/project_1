@@ -80,10 +80,11 @@ ul {
 .time-selector {
 	line-height: 30px;
 }
-#amountOfTasks{
+.amountOfTasks{
 	
-	float: left;
-	margin-left: 150 px;
+	position: absolute;
+	top: 40px;
+	right: 200px;
 	
 }
 

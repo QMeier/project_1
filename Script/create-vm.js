@@ -85,6 +85,7 @@ function save(){
    var chooseMonth = parseInt(d.substring(5, 7));
    var chooseDate = parseInt(d.substring(8, 10));
    var blocks = ''
+   var taskList = ''
    //Check inputs
    if(!n){
       return console.log('ERROR: missing event name')
@@ -103,10 +104,16 @@ function save(){
          }
       }
    }
+   //takes all the tasks and combines into one task variable.
+   for (let k=0;k<numberOfItems;k++)
+   {
+		taskList = taskList +',' +  allTheTasks[k]
+   }
+   //check here for the ability to input information to the airtable
    if(blocks == '') {
       return console.log('ERROR: no times selected')
    }
-   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__')  
+   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__',taskList)  
    $.ajax({
       url: '/create',
       method: 'POST',
@@ -131,7 +138,14 @@ function backButton() {
 }
 
 
-
+/** Name: saveNewTask
+*Scope: CreateEvent
+*Description:	Saves the task created into an array. It takes a child node and is going to display the tasks on the html document.
+*				For everytime that the save task is hit it will clear the entrybox.
+*
+*Pre: Event create page loaded, all event creation inputs filled out according to rules of event signup
+*Post: Event is saved in localStorage in either a new document if document not created or in a previously created event creation document
+*/
 function saveNewTask(){
 	
 
@@ -142,6 +156,7 @@ function saveNewTask(){
 		var textnode = document.createTextNode(newTask);    //instead of node create an li to create the table method
 		node.appendChild(textnode);
 		document.getElementById("TaskList1").appendChild(node);
+		document.getElementById("TaskList").value = "";
 		listItems++;
 		numberOfItems++;		
 	
