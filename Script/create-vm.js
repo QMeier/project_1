@@ -1,9 +1,13 @@
 window.addEventListener("load", initialMode, false);
 var militaryTime = false
+<<<<<<< HEAD
 
 var allTheTasks = [];
 var numberOfItems = 0;
 var listItems =1;
+=======
+var numDates = 0;
+>>>>>>> master
 /** Name: initialMode 
 *Scope: CreateEvent
 *Description:  Sets the initial time mode of event creation to 24 hour mode
@@ -13,7 +17,42 @@ var listItems =1;
 */
 function initialMode(){
    var mode = document.getElementById("TimeMode").value;
+   numDates = 0;
    ModeControl(mode);
+}
+
+/**
+*	@Function buildDateModule()
+*
+*	@description Builds a new module for picking another date and times in the event creation, in order to handle
+*	multi-day events.
+*/
+function buildDateModule() {
+	let module = document.getElementById("time-select-module");
+	
+	//create paragraph with text and input for date select
+	let paragraph = document.createElement("P");
+	let input = document.createElement("INPUT");
+	let checkboxdiv = document.createElement("DIV");
+	
+	//build paragraph with date selector
+	paragraph.appendChild(document.createTextNode("Date:"));
+	input.setAttribute("type","date");
+	input.setAttribute("min","2017-09-01");
+	input.setAttribute("max","2030-09-01");
+	input.setAttribute("id","date");
+	paragraph.appendChild(input);
+	paragraph.appendChild(document.createElement("BR"));
+	
+	//build div to hold the checkboxes
+	checkboxdiv.setAttribute("id","time-selector-"+numDates);
+	checkboxdiv.setAttribute("class","time-selector");
+	
+	module.appendChild(paragraph);
+	module.appendChild(checkboxdiv);
+	
+	buildCheckBoxes(numDates);
+	numDates++;
 }
 
 /** Name: buildCheckBoxes
@@ -24,14 +63,14 @@ function initialMode(){
 *Post: page now has 48 checkboxes
 */
 var buildCheckBoxes = function(index){
-   var container = document.getElementById('time-selector')
+   var container = document.getElementById('time-selector-'+index)
    if(militaryTime){
       container.style.width = '330px'
    }
    else {
       container.style.width = '370px'
    }
-   $('#time-selector').empty()
+   $('#time-selector-'+index).empty()
    for(var i=0;i<48;i++){
       var label = document.createElement('label')
       label.innerHTML = blocksConversion(i)
@@ -57,12 +96,12 @@ function ModeControl(mode){
    if(mode==12)
    {
       militaryTime = false
-      buildCheckBoxes(0)
+      buildDateModule()
    }
    else
    {
       militaryTime = true
-      buildCheckBoxes(0)
+      buildDateModule()
    }
 }
 
@@ -113,7 +152,8 @@ function save(){
    if(blocks == '') {
       return console.log('ERROR: no times selected')
    }
-   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__',taskList)  
+   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '[{"date":'+d+',"blocks":['+blocks+']}]',taskList)  
+
    $.ajax({
       url: '/create',
       method: 'POST',
@@ -121,7 +161,7 @@ function save(){
       contentType: 'application/json',
       dataType: "json",
       success: function(data){
-         console.log("success")
+        window.history.back();
       },
    })
 }
