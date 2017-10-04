@@ -69,7 +69,7 @@ var buildCheckBoxes = function(index){
       label.innerHTML = blocksConversion(i)
       var box = document.createElement('input')
       box.setAttribute('value',i)
-      box.setAttribute('id','block-'+i)
+      box.setAttribute('id',index+'-block-'+i)
       box.setAttribute('type','checkbox')
       label.appendChild(box)
       container.appendChild(label)
@@ -122,39 +122,41 @@ function save(){
 	   temp.date = document.getElementById("date-"+i).value;
 	   
 	   //initialize blocks to be empty array before looking at what blocks are checked
-	   temp.blocks = [12,13,14,20,21];
-	   console.log(temp);
+	   temp.blocks = [];
 	   d.push(temp);
    }
    
-   
-   /*var chooseYear = parseInt(d[0]["date"].substring(0, 4));
-   var chooseMonth = parseInt(d[0]["date"].substring(5, 7));
-   var chooseDate = parseInt(d[0]["date"].substring(8, 10));
-
    //Check inputs
    if(!n){
       return console.log('ERROR: missing event name')
    }
-   if(!d){
-      return console.log('ERROR: missing event date')
+   for(let i=0;i<numDates;i++)
+   {
+	   if(!d[i].date){
+		  return console.log('ERROR: missing at least one event date')
+	   }
    }
    
-   
-   for(var i=0;i<48;i++){
-      var box = document.getElementById('block-'+i)
-      if(box.checked){
-         if(blocks == ''){
-            blocks = box.value
-         }
-         else{
-            blocks = blocks + ',' + box.value
-         }
-      }
-   }*/
-   if((d[0].blocks).length == 0) {
-      return console.log('ERROR: no times selected')
+   //for each date object, constructs array of checked boxes
+   for(let j=0;j<numDates;j++)
+   {
+	   for(var i=0;i<48;i++){
+		  var box = document.getElementById(j+'-block-'+i)
+		  if(box.checked){
+			d[j].blocks.push(parseInt(box.value));
+		  }
+	   }
    }
+   
+   //for each date, check that at least 1 time block is checked
+   for(let i=0;i<numDates;i++)
+   {
+	   if((d[i].blocks).length == 0) {
+		  return console.log('ERROR: no times selected for at least one date')
+	   }
+   }
+   
+   //create event object with data and sends to database, then goes back to homepage
    var event = new Event(n, 'John Gibbons,'+JSON.stringify(d),JSON.stringify(d))  
    $.ajax({
       url: '/create',
