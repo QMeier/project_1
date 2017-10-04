@@ -78,7 +78,7 @@ ul {
 }
 
 .time-selector {
-<<<<<<< HEAD
+=
 	line-height: 30px;
 }
 #amountOfTasks{
@@ -88,11 +88,7 @@ ul {
 	
 }
 
-=======
-	line-height: 30px
-}
-
 #add-date {
 	width: 150px;
 }
->>>>>>> a139be3a8700a49c763df7f07133390753586fc5
+
