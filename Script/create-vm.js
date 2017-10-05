@@ -34,7 +34,7 @@ function buildDateModule () {
   input.setAttribute('type', 'date')
   input.setAttribute('min', '2017-09-01')
   input.setAttribute('max', '2030-09-01')
-  input.setAttribute('id', 'date')
+  input.setAttribute('id', 'date-' + numDates)
   paragraph.appendChild(input)
   paragraph.appendChild(document.createElement('BR'))
 
