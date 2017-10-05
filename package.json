@@ -1,10 +1,11 @@
 {
   "name": "project2",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Thundercat's second appearance",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:fix": "standard --fix"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "airtable": "^0.5.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.0",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "standard": "^10.0.3"
   }
 }
