@@ -1,4 +1,4 @@
-window.addEventListener("load", initialMode, false);
+window.addEventListener("load", initialMode, false	);
 var militaryTime = false
 var numDates = 0;
 /** Name: initialMode 
@@ -9,9 +9,9 @@ var numDates = 0;
 *Post: Time mode initialized to 24 hour mode
 */
 function initialMode(){
-   var mode = document.getElementById("TimeMode").value;
    numDates = 0;
-   ModeControl(mode);
+   modeControl();
+   buildDateModule();
 }
 
 /**
@@ -85,16 +85,19 @@ var buildCheckBoxes = function(index){
 */
 
 
-function ModeControl(mode){
+function modeControl(){
+   var mode = document.getElementById("TimeMode").value;
    if(mode==12)
    {
       militaryTime = false
-      buildDateModule()
+	  for(let i=0;i<numDates;i++)
+		  buildCheckBoxes(i);
    }
    else
    {
       militaryTime = true
-      buildDateModule()
+	  for(let i=0;i<numDates;i++)
+		  buildCheckBoxes(i);
    }
 }
 
