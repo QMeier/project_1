@@ -1,13 +1,11 @@
 window.addEventListener("load", initialMode, false);
 var militaryTime = false
-<<<<<<< HEAD
 
 var allTheTasks = [];
 var numberOfItems = 0;
 var listItems =1;
-=======
 var numDates = 0;
->>>>>>> master
+
 /** Name: initialMode 
 *Scope: CreateEvent
 *Description:  Sets the initial time mode of event creation to 24 hour mode
@@ -116,7 +114,7 @@ function ModeControl(mode){
 function save(){
    var n = document.getElementById('name').value;
    var d = document.getElementById('date').value;// min date= now
-   var DD = new Date();
+   var DD = new Date(); //
    var currentDate = DD.getDate();
    var currentMonth = DD.getMonth()+1;
    var currentYear = DD.getFullYear();
@@ -124,7 +122,7 @@ function save(){
    var chooseMonth = parseInt(d.substring(5, 7));
    var chooseDate = parseInt(d.substring(8, 10));
    var blocks = ''
-   var taskList = ''
+	var taskList = allTheTasks[0]
    //Check inputs
    if(!n){
       return console.log('ERROR: missing event name')
@@ -144,7 +142,7 @@ function save(){
       }
    }
    //takes all the tasks and combines into one task variable.
-   for (let k=0;k<numberOfItems;k++)
+   for (let k=1;k<=numberOfItems;k++)
    {
 		taskList = taskList +',' +  allTheTasks[k]
    }
