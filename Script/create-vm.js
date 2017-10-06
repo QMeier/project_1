@@ -116,7 +116,7 @@ function save(){
    var chooseMonth = parseInt(d.substring(5, 7))
    var chooseDate = parseInt(d.substring(8, 10))
    var blocks = ''
-	var taskList = allTheTasks[0]
+	var taskList = ''
    //Check inputs
    if(!n){
       return console.log('ERROR: missing event name')
@@ -138,7 +138,13 @@ function save(){
    //takes all the tasks and combines into one task variable.
    for (let k=1;k<=numberOfItems;k++)
    {
-		taskList = taskList +',' +  allTheTasks[k]
+	   if (numberOfItems == 0){
+		   taskList = allTheTasks[numberOfItems]
+	   }
+	   else{
+			taskList = taskList +',' +  allTheTasks[k]   
+	   }
+
    }
    //check here for the ability to input information to the airtable
    if(blocks == '') {
