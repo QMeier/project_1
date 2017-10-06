@@ -1,3 +1,4 @@
+//cd Documents/Fall 2017/EECS 448/project_1/
 window.addEventListener('load', initialMode, false)
 var militaryTime = false
 
@@ -116,7 +117,7 @@ function save(){
    var chooseMonth = parseInt(d.substring(5, 7))
    var chooseDate = parseInt(d.substring(8, 10))
    var blocks = ''
-   var filler = JSON.stringify(allTheTasks);
+   var fillTask = JSON.stringify(allTheTasks);
    //Check inputs
    if(!n){
       return console.log('ERROR: missing event name')
@@ -141,7 +142,7 @@ function save(){
    if(blocks == '') {
       return console.log('ERROR: no times selected')
    }
-   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '[{"date":'+d+',"blocks":['+blocks+']}]',filler)  
+   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '[{"date":'+d+',"blocks":['+blocks+']}]',fillTask)  
 
    $.ajax({
       url: '/create',
@@ -188,10 +189,5 @@ function saveNewTask(){
 		document.getElementById("TaskList").value = "";
 		numberOfItems++;	
 		listItems++;
-		
-	for (var i = 0; i < allTheTasks.length;i++)
-   {
-	   console.log(allTheTasks[i]);
-   }
 	
 }
