@@ -5,7 +5,7 @@ var allTheTasks = []
 var numberOfItems = 0
 var listItems = 1
 var numDates = 0
-var numDates = 0
+
 /** Name: initialMode
 *Scope: CreateEvent
 *Description:  Sets the initial time mode of event creation to 24 hour mode
@@ -116,7 +116,7 @@ function save(){
    var chooseMonth = parseInt(d.substring(5, 7))
    var chooseDate = parseInt(d.substring(8, 10))
    var blocks = ''
-	var taskList = ''
+   var filler = JSON.stringify(allTheTasks);
    //Check inputs
    if(!n){
       return console.log('ERROR: missing event name')
@@ -135,22 +135,13 @@ function save(){
          }
       }
    }
-   //takes all the tasks and combines into one task variable.
-   for (let k=1;k<=numberOfItems;k++)
-   {
-	   if (numberOfItems == 0){
-		   taskList = allTheTasks[numberOfItems]
-	   }
-	   else{
-			taskList = taskList +',' +  allTheTasks[k]   
-	   }
 
-   }
+   //takes all the tasks and combines into one task variable.
    //check here for the ability to input information to the airtable
    if(blocks == '') {
       return console.log('ERROR: no times selected')
    }
-   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '[{"date":'+d+',"blocks":['+blocks+']}]',taskList)  
+   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '[{"date":'+d+',"blocks":['+blocks+']}]',filler)  
 
    $.ajax({
       url: '/create',
@@ -185,10 +176,7 @@ function backButton () {
 *Pre: Event create page loaded, all event creation inputs filled out according to rules of event signup
 *Post: Event is saved in localStorage in either a new document if document not created or in a previously created event creation document
 */
-function saveNewTask(){
-
-	
-	
+function saveNewTask(){	
 
 		var node = document.createElement("ul");
 		var newTask =  document.getElementById("TaskList").value;
@@ -198,7 +186,12 @@ function saveNewTask(){
 		node.appendChild(textnode);
 		document.getElementById("TaskList1").appendChild(node);
 		document.getElementById("TaskList").value = "";
+		numberOfItems++;	
 		listItems++;
-		numberOfItems++;		
+		
+	for (var i = 0; i < allTheTasks.length;i++)
+   {
+	   console.log(allTheTasks[i]);
+   }
 	
 }
