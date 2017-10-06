@@ -46,6 +46,8 @@ function buildDateModule () {
   module.appendChild(checkboxdiv)
 
   buildCheckBoxes(numDates)
+  if(numDates > 0)
+	  buildCopyBlocks(numDates)
   numDates++
 }
 
@@ -74,6 +76,17 @@ var buildCheckBoxes = function (index) {
     label.appendChild(box)
     container.appendChild(label)
   }
+}
+
+/**
+* @Function buildCopyBlocks(index)
+*
+* @description this method creates a button that allows the user to copy selected times from a selected
+* date.
+*
+*/
+function buildCopyBlocks(index)
+{
 }
 
 /** Name: Mode Control
