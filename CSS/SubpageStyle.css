@@ -81,10 +81,10 @@ ul {
 
 	line-height: 30px;
 }
-#amountOfTasks{
+.amountOfTasks{
 	
 	position: absolute;
-	top: 40px;
+	top: 170px;
 	right: 100px;
 	
 }
