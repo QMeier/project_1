@@ -87,6 +87,63 @@ var buildCheckBoxes = function (index) {
 */
 function buildCopyBlocks(index)
 {
+  let module = document.getElementById('time-select-module')
+
+	// create paragraph with text and input for date select
+  let paragraph = document.createElement('P')
+  let input = document.createElement('select')
+  let submitButton = document.createElement('button')
+
+	// build paragraph with date selector
+  paragraph.appendChild(document.createTextNode('Copy selected times from date :'))
+  input.setAttribute('name', 'dateCopy')
+  input.setAttribute('id', 'select-' + index)
+  
+	//find out all the current chosen dates and add them as options
+  for(let i=0;i<=numDates-1;i++)
+  {
+	  let options = document.createElement('option')
+	  let currDate = document.getElementById('date-' + i).value;
+	  if(currDate == "")
+	  {
+		  options.setAttribute('value','Date '+(i+1))
+		  options.appendChild(document.createTextNode('Date '+ (i+1)))
+	  }
+	  else
+	  {
+		  options.setAttribute('value',currDate)
+		  options.appendChild(document.createTextNode(currDate))
+	  }
+	  
+	  input.appendChild(options)
+  }
+  
+  submitButton.setAttribute('onclick','copyBlocks(date-' + index + ')')
+  
+  paragraph.appendChild(input)
+  paragraph.appendChild(document.createElement('BR'))
+  
+  module.appendChild(paragraph)
+}
+
+/**
+* @Function copyBlocks(index)
+*
+* @description copyBlocks(index) does the actual copying of selected times from the chosen
+* date module to the module whose index is passed in by the parameter
+*
+*/
+function copyBlocks(index)
+{
+	let copyFrom = document.getElementById('select-' + index).value;
+	
+	//if the selected choice from the dropdown is of the form "Date #"
+	if(copyFrom[0] == "D")
+	{
+	}
+	else
+	{
+	}		
 }
 
 /** Name: Mode Control
