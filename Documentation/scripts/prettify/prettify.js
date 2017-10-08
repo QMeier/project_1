@@ -38,9 +38,9 @@ t[s++ << 1 | 1] = a)
     function e (a) {
       switch (a.nodeType) {
         case 1:if (k.test(a.className)) break; if (a.nodeName === 'BR') {
-         h(a),
+          h(a),
 a.parentNode && a.parentNode.removeChild(a)
-       } else for (a = a.firstChild; a; a = a.nextSibling)e(a); break; case 3:case 4:if (p) { var b = a.nodeValue, d = b.match(t); if (d) { var c = b.substring(0, d.index); a.nodeValue = c; (b = b.substring(d.index + d[0].length)) && a.parentNode.insertBefore(s.createTextNode(b), a.nextSibling); h(a); c || a.parentNode.removeChild(a) } }
+        } else for (a = a.firstChild; a; a = a.nextSibling)e(a); break; case 3:case 4:if (p) { var b = a.nodeValue, d = b.match(t); if (d) { var c = b.substring(0, d.index); a.nodeValue = c; (b = b.substring(d.index + d[0].length)) && a.parentNode.insertBefore(s.createTextNode(b), a.nextSibling); h(a); c || a.parentNode.removeChild(a) } }
       }
     } function h (a) {
       function b (a, d) { var e = d ? a.cloneNode(!1) : a, f = a.parentNode; if (f) { var f = b(f, 1), g = a.nextSibling; f.appendChild(e); for (var h = g; h; h = g)g = h.nextSibling, f.appendChild(h) } return e }
@@ -62,10 +62,10 @@ j; var u = i.ownerDocument, v = u.createElement('SPAN'); v.className = d[a + 1];
     H = [G, 'as,base,by,checked,decimal,delegate,descending,dynamic,event,fixed,foreach,from,group,implicit,in,interface,internal,into,is,lock,object,out,override,orderby,params,partial,readonly,ref,sbyte,sealed,stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,var'], w = [w, 'debugger,eval,export,function,get,null,set,undefined,var,with,Infinity,NaN'], I = [v, 'and,as,assert,class,def,del,elif,except,exec,finally,from,global,import,in,is,lambda,nonlocal,not,or,pass,print,raise,try,with,yield,False,True,None'],
     J = [v, 'alias,and,begin,case,class,def,defined,elsif,end,ensure,false,in,module,next,nil,not,or,redo,rescue,retry,self,super,then,true,undef,unless,until,when,yield,BEGIN,END'], v = [v, 'case,done,elif,esac,eval,fi,function,in,local,set,then,until'], K = /^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\d*)/, N = /\S/, O = u({keywords: [F, H, w, 'caller,delete,die,do,dump,elsif,eval,exit,foreach,for,goto,if,import,last,local,my,next,no,our,print,package,redo,require,sub,undef,unless,until,use,wantarray,while,BEGIN,END' +
 I, J, v],
-     hashComments: !0,
-     cStyleComments: !0,
-     multiLineStrings: !0,
-     regexLiterals: !0}), A = {}; k(O, ['default-code']); k(x([], [['pln', /^[^<?]+/], ['dec', /^<!\w[^>]*(?:>|$)/], ['com', /^<\!--[\S\s]*?(?:--\>|$)/], ['lang-', /^<\?([\S\s]+?)(?:\?>|$)/], ['lang-', /^<%([\S\s]+?)(?:%>|$)/], ['pun', /^(?:<[%?]|[%?]>)/], ['lang-', /^<xmp\b[^>]*>([\S\s]+?)<\/xmp\b[^>]*>/i], ['lang-js', /^<script\b[^>]*>([\S\s]*?)(<\/script\b[^>]*>)/i], ['lang-css', /^<style\b[^>]*>([\S\s]*?)(<\/style\b[^>]*>)/i], ['lang-in.tag', /^(<\/?[a-z][^<>]*>)/i]]),
+      hashComments: !0,
+      cStyleComments: !0,
+      multiLineStrings: !0,
+      regexLiterals: !0}), A = {}; k(O, ['default-code']); k(x([], [['pln', /^[^<?]+/], ['dec', /^<!\w[^>]*(?:>|$)/], ['com', /^<\!--[\S\s]*?(?:--\>|$)/], ['lang-', /^<\?([\S\s]+?)(?:\?>|$)/], ['lang-', /^<%([\S\s]+?)(?:%>|$)/], ['pun', /^(?:<[%?]|[%?]>)/], ['lang-', /^<xmp\b[^>]*>([\S\s]+?)<\/xmp\b[^>]*>/i], ['lang-js', /^<script\b[^>]*>([\S\s]*?)(<\/script\b[^>]*>)/i], ['lang-css', /^<style\b[^>]*>([\S\s]*?)(<\/style\b[^>]*>)/i], ['lang-in.tag', /^(<\/?[a-z][^<>]*>)/i]]),
 ['default-markup', 'htm', 'html', 'mxml', 'xhtml', 'xml', 'xsl']); k(x([['pln', /^\s+/, q, ' \t\r\n'], ['atv', /^(?:"[^"]*"?|'[^']*'?)/, q, "\"'"]], [['tag', /^^<\/?[a-z](?:[\w-.:]*\w)?|\/?>$/i], ['atn', /^(?!style[\s=]|on)[a-z](?:[\w:-]*\w)?/i], ['lang-uq.val', /^=\s*([^\s"'>]*(?:[^\s"'/>]|\/(?=\s)))/], ['pun', /^[/<->]+/], ['lang-js', /^on\w+\s*=\s*"([^"]+)"/i], ['lang-js', /^on\w+\s*=\s*'([^']+)'/i], ['lang-js', /^on\w+\s*=\s*([^\s"'>]+)/i], ['lang-css', /^style\s*=\s*"([^"]+)"/i], ['lang-css', /^style\s*=\s*'([^']+)'/i], ['lang-css',
   /^style\s*=\s*([^\s"'>]+)/i]]), ['in.tag']); k(x([], [['atv', /^[\S\s]+/]]), ['uq.val']); k(u({keywords: F, hashComments: !0, cStyleComments: !0, types: K}), ['c', 'cc', 'cpp', 'cxx', 'cyc', 'm']); k(u({keywords: 'null,true,false'}), ['json']); k(u({keywords: H, hashComments: !0, cStyleComments: !0, verbatimStrings: !0, types: K}), ['cs']); k(u({keywords: G, cStyleComments: !0}), ['java']); k(u({keywords: v, hashComments: !0, multiLineStrings: !0}), ['bsh', 'csh', 'sh']); k(u({keywords: I, hashComments: !0, multiLineStrings: !0, tripleQuotedStrings: !0}),
 ['cv', 'py']); k(u({keywords: 'caller,delete,die,do,dump,elsif,eval,exit,foreach,for,goto,if,import,last,local,my,next,no,our,print,package,redo,require,sub,undef,unless,until,use,wantarray,while,BEGIN,END', hashComments: !0, multiLineStrings: !0, regexLiterals: !0}), ['perl', 'pl', 'pm']); k(u({keywords: J, hashComments: !0, multiLineStrings: !0, regexLiterals: !0}), ['rb']); k(u({keywords: w, cStyleComments: !0, regexLiterals: !0}), ['js']); k(u({keywords: 'all,and,by,catch,class,else,extends,false,finally,for,if,in,is,isnt,loop,new,no,not,null,of,off,on,or,return,super,then,true,try,unless,until,when,while,yes',
