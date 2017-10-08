@@ -95,7 +95,7 @@ function buildCopyBlocks(index)
   let submitButton = document.createElement('button')
 
 	// build paragraph with date selector
-  paragraph.appendChild(document.createTextNode('Copy selected times from date :'))
+  paragraph.appendChild(document.createTextNode('Copy selected times from date: '))
   input.setAttribute('name', 'dateCopy')
   input.setAttribute('id', 'select-' + index)
   
@@ -118,9 +118,12 @@ function buildCopyBlocks(index)
 	  input.appendChild(options)
   }
   
-  submitButton.setAttribute('onclick','copyBlocks(date-' + index + ')')
+  submitButton.setAttribute('onclick','copyBlocks(' + index + ')')
+  submitButton.setAttribute('class','button')
+  submitButton.appendChild(document.createTextNode('Copy'))
   
   paragraph.appendChild(input)
+  paragraph.appendChild(submitButton)
   paragraph.appendChild(document.createElement('BR'))
   
   module.appendChild(paragraph)
@@ -135,15 +138,36 @@ function buildCopyBlocks(index)
 */
 function copyBlocks(index)
 {
-	let copyFrom = document.getElementById('select-' + index).value;
+	let copyFrom = document.getElementById('select-' + index).value
+	let dateSearch
 	
-	//if the selected choice from the dropdown is of the form "Date #"
-	if(copyFrom[0] == "D")
+	//find the index of the date module we're copying from
+	if(copyFrom.charAt(0) == "D")
 	{
+		//if the selected choice from the dropdown is of the form "Date #" then that number minus 1 is the index of the date module
+		dateSearch = parseInt(copyFrom.substring(5))-1
 	}
 	else
 	{
-	}		
+		//otherwise, look for date module with the same date string as the selection
+		for(let i=0;i<numDates;i++)
+		{
+			if(document.getElementById('date-' + i).value == copyFrom)
+				dateSearch = i
+		}
+	}
+
+	//now that we know what date to copy to and to copy from, actually copy the time block checkboxes
+	for(let i=0;i<48;i++)
+	{
+		if(document.getElementById(dateSearch + '-block-' + i).checked)
+		{
+			document.getElementById(index + '-block-' + i).checked = true
+		}
+		else
+			document.getElementById(index + '-block-' + i).checked = false
+	}
+	
 }
 
 /** Name: Mode Control
