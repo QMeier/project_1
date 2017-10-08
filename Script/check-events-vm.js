@@ -268,8 +268,47 @@ var addUserToEvent = function(element) {
 }
 
 var showAttendeesForEvent = function(element){
+  if($('.attendee-container')){
+    $('.attendee-container').remove()
+  }
+  var attendees;
+  for(var i=0;i<eventsFromDB.length;i++){
+    if(eventsFromDB[i].Id == element.id){
+      attendees = eventsFromDB[i].People
+    }
+  }
+  attendees = JSON.parse(attendees)
+  console.log(attendees)
 
-}
+  var attendeeDiv = document.createElement('div')
+  attendeeDiv.setAttribute('class','attendee-container')
+  element.appendChild(attendeeDiv)
+
+  //display people!
+  for(var i=0;i<attendees.length;i++){
+    var attendee = document.createElement('div')
+    attendee.setAttribute('class','attendee')
+    attendee.textContent = attendees[i].name
+    attendeeDiv.appendChild(attendee)
+
+    var attendeeTimes = attendees[i].times
+    //for every date
+    for(var j=0;j<attendeeTimes.length;j++){
+      var spacer = document.createElement('div')
+      attendee.appendChild(spacer)
+
+      var blocksDate = document.createElement('span')
+      blocksDate.setAttribute('class','attendee-date')
+      blocksDate.textContent = attendeeTimes[j].date
+      attendee.appendChild(blocksDate)
+
+      var blocks = document.createElement('span')
+      blocks.setAttribute('class','attendee-blocks')
+      blocks.textContent = getTimes(attendeeTimes[j].blocks)
+      attendee.appendChild(blocks)
+    }
+  }
+} 
 
 /**
 * @Function updateEvent
