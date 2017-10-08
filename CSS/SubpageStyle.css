@@ -1,3 +1,8 @@
+* {
+   font-family: 'Open Sans', sans-serif;
+}
+
+
 #background{
 	background-color: #79a68f;
 }
@@ -93,3 +98,32 @@ ul {
 	width: 150px;
 }
 
+/*NEW CSS FROM PROJECT 2*/
+.event {
+	padding:10px;
+	margin:20px 0;
+	background-color:white;
+}
+
+.event-name {
+	font-weight:bold;
+	margin-bottom:4px;
+	font-size:20px;
+}
+
+.event-date {
+	font-weight:600;
+	margin: 10px 0 ;
+	font-size:16px;
+}
+
+.block-label {
+	display: block;
+}
+
+.event-users-name {
+	width:300px;
+	line-height:26px;
+	margin:10px 0;
+	font-size: 14px;
+}

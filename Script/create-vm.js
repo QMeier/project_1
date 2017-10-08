@@ -3,7 +3,6 @@ window.addEventListener('load', initialMode, false)
 var militaryTime = false
 
 var allTheTasks = []
-var numberOfItems = 0
 var listItems = 1
 var numDates = 0
 
@@ -142,7 +141,7 @@ function save(){
    if(blocks == '') {
       return console.log('ERROR: no times selected')
    }
-   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '[{"date":'+d+',"blocks":['+blocks+']}]',fillTask)  
+   var event = new Event(n, d, blocks, 'John Gibbons,'+blocks+'__', '[{"date":'+JSON.stringify(d)+',"blocks":['+blocks+']}]',fillTask)  
 
    $.ajax({
       url: '/create',
@@ -181,13 +180,11 @@ function saveNewTask(){
 
 		var node = document.createElement("ul");
 		var newTask =  document.getElementById("TaskList").value;
-		allTheTasks[numberOfItems] = newTask;
+		allTheTasks.push(new Task(newTask, ''));
 		newTask = listItems + "- " + newTask;
 		var textnode = document.createTextNode(newTask);    //instead of node create an li to create the table method
 		node.appendChild(textnode);
 		document.getElementById("TaskList1").appendChild(node);
 		document.getElementById("TaskList").value = "";
-		numberOfItems++;	
 		listItems++;
-	
 }

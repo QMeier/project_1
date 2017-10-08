@@ -1,11 +1,9 @@
 function Event(name, date, blocks, people, timedate, task) {
-
-  this.Name = name
-  this.Date = date
-  this.Blocks = blocks
-  this.People = people
-  this.TimesObjects = timedate
-  this.Tasks = task
-  
+  this.name = name
+  this.date = date
+  this.blocks = blocks
+  this.people = people
+  this.timesObjects = timedate
+  this.tasks = task
 }
 

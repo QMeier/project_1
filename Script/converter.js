@@ -73,37 +73,20 @@ function getPeopleArray (peopleString) {
 *
 */
 function getTimes (timeBlocks) {
-  let blocksArr = []
-  let outputString = ''
+  var outputString = ''
 
    // temporary string to hold blocks, in case they're longer than 1 character
-  let temp = ''
 
-  for (let i = 0; i < timeBlocks.length; i++) {
-      // if the current character is a comma, push temp
-    if (timeBlocks.charAt(i) === ',') {
-      blocksArr.push(temp)
-      temp = ''
-    }
-      // if the current character isn't a comma, concatenate temp and the current character and put it back into temp
-    else {
-      temp = temp + timeBlocks.charAt(i)
-    }
-  }
-   // since there's no comma at the end of timeBlocks, push temp if it's not empty
-  if (temp) { blocksArr.push(parseInt(temp)) }
-
-   // blocksArr is now full, so outputString can now be constructed
-  for (let i = 0; i < blocksArr.length; i++) {
+  for (var i = 0; i < timeBlocks.length; i++) {
       // if it's the start block for a given set of consecutive blocks, write the start time
-    if (i === 0 || blocksArr[i] != (parseInt(blocksArr[i - 1]) + 1)) {
-      outputString = outputString + blocksConversion(parseInt(blocksArr[i])) + ' - '
+    if (i == 0 || timeBlocks[i] != (timeBlocks[i - 1] + 1)) {
+      outputString = outputString + blocksConversion(timeBlocks[i]) + ' - '
     }
       // if it's the end block for a given set of consecutive blocks, write the end time
-    if (i === blocksArr.length || blocksArr[i] != (parseInt(blocksArr[i + 1]) - 1)) {
-      outputString = outputString + blocksConversion(parseInt(blocksArr[i]) + 1)
+    if (i == timeBlocks.length || timeBlocks[i] != (timeBlocks[i + 1] - 1)) {
+      outputString = outputString + blocksConversion(timeBlocks[i] + 1)
          // if it's not the last block, put a comma to separate times
-      if (i !== blocksArr.length - 1) {
+      if (i != timeBlocks.length - 1) {
         outputString = outputString + ', '
       }
     }

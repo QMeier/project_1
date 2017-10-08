@@ -37,14 +37,47 @@ var base = Airtable.base('appv0XuVYZCSh5sX0')
 
 app.post('/create', function (req, res, next) {
   base('Events').create({
-    'Name': req.body.Name,
-    'People': req.body.People,
-	 'Times': req.body.TimesObjects,
-	'Tasks': req.body.Tasks
+    'Name': req.body.name,
+    'People': req.body.people,
+	 'Times': req.body.timesObjects,
+	'Tasks': req.body.tasks
   }, function (err, record) {
     if (err) { console.error(err); return }
     res.send(record)
   })
+})
+
+/**
+*	@Function		eachPage && "/admin/events"
+*	Each page is just a singular HTML file that will hold all of the events for said day. It takes
+*	the record of the information and the following day as parameters. It will then display
+*	this information within the HTML page.
+*
+*	@pre		records-information based on the events
+*			fetchNextPage- gets the next day of the month to make a clickable link.
+*	@post		no return
+*	@version	1.0
+*	@since		September 17, 2017
+*
+*/
+
+app.get("/events", function(req,res,next){
+   var eventsArr = [];
+   base('Events').select({
+         view: "Grid view"
+   }
+   ).eachPage(function page(records, fetchNextPage) {
+      // This function (`page`) will get called for each page of records.
+      records.forEach(function(record) {
+               record.fields.Id = record.id
+               eventsArr.push(record.fields);
+         });
+      fetchNextPage();
+      }, function done(err) {
+         if (err) { console.error(err); return; }
+         res.send(eventsArr);
+         next()
+         })
 })
 
 var port = 8080
