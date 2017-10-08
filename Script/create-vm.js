@@ -74,6 +74,8 @@ var buildCheckBoxes = function (index) {
     box.setAttribute('id', index + '-block-' + i)
     box.setAttribute('type', 'checkbox')
     label.appendChild(box)
+	if((i+1)%4==0)
+		label.appendChild(document.createElement('br'))
     container.appendChild(label)
   }
 }
