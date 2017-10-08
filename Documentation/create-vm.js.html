@@ -1,4 +1,32 @@
-//cd Documents/Fall 2017/EECS 448/project_1/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: create-vm.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: create-vm.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//cd Documents/Fall 2017/EECS 448/project_1/
 window.addEventListener('load', initialMode, false)
 var militaryTime = false
 
@@ -71,7 +99,7 @@ var buildCheckBoxes = function (index) {
     container.style.width = '370px'
   }
   $('#time-selector-' + index).empty()
-  for (var i = 0; i < 48; i++) {
+  for (var i = 0; i &lt; 48; i++) {
     var label = document.createElement('label')
     label.innerHTML = blocksConversion(i)
     var box = document.createElement('input')
@@ -105,7 +133,7 @@ function buildCopyBlocks (index) {
   input.setAttribute('id', 'select-' + index)
 
   // find out all the current chosen dates and add them as options
-  for (let i = 0; i <= numDates - 1; i++) {
+  for (let i = 0; i &lt;= numDates - 1; i++) {
     let options = document.createElement('option')
     let currDate = document.getElementById('date-' + i).value
     if (currDate == '') {
@@ -147,7 +175,7 @@ function copyBlocks (index) {
     dateSearch = parseInt(copyFrom.substring(5)) - 1
   } else  {
     // otherwise, look for date module with the same date string as the selection
-    for (let i = 0; i < numDates; i++)    {
+    for (let i = 0; i &lt; numDates; i++)    {
       if (document.getElementById('date-' + i).value == copyFrom)     {
         dateSearch = i
         break
@@ -156,7 +184,7 @@ function copyBlocks (index) {
   }
 
   // now that we know what date to copy to and to copy from, actually copy the time block checkboxes
-  for (let i = 0; i < 48; i++)  {
+  for (let i = 0; i &lt; 48; i++)  {
     if (document.getElementById(dateSearch + '-block-' + i).checked)    {
       document.getElementById(index + '-block-' + i).checked = true
     }   else      { document.getElementById(index + '-block-' + i).checked = false }
@@ -175,10 +203,10 @@ function modeControl () {
   var mode = document.getElementById('TimeMode').value
   if (mode == 12) {
     militaryTime = false
-    for (let i = 0; i < numDates; i++)      { buildCheckBoxes(i) }
+    for (let i = 0; i &lt; numDates; i++)      { buildCheckBoxes(i) }
   } else {
     militaryTime = true
-    for (let i = 0; i < numDates; i++)      { buildCheckBoxes(i) }
+    for (let i = 0; i &lt; numDates; i++)      { buildCheckBoxes(i) }
   }
 }
 
@@ -200,7 +228,7 @@ function save () {
   var fillTask = JSON.stringify(allTheTasks);
 
    // populate dates array with all the dates
-  for (let i = 0; i < numDates; i++) {
+  for (let i = 0; i &lt; numDates; i++) {
      let temp = {}
      temp.date = document.getElementById('date-' + i).value
 
@@ -213,15 +241,15 @@ function save () {
   if (!n) {
     return console.log('ERROR: missing event name')
   }
-  for (let i = 0; i < numDates; i++) {
+  for (let i = 0; i &lt; numDates; i++) {
      if (!d[i].date) {
       return console.log('ERROR: missing at least one event date')
      }
   }
 
    // for each date object, constructs array of checked boxes
-  for (let j = 0; j < numDates; j++) {
-     for (var i = 0; i < 48; i++) {
+  for (let j = 0; j &lt; numDates; j++) {
+     for (var i = 0; i &lt; 48; i++) {
       var box = document.getElementById(j + '-block-' + i)
       if (box.checked) {
     d[j].blocks.push(parseInt(box.value))
@@ -230,15 +258,15 @@ function save () {
   }
 
    // for each date, check that at least 1 time block is checked
-  for (let i = 0; i < numDates; i++) {
+  for (let i = 0; i &lt; numDates; i++) {
      if ((d[i].blocks).length == 0) {
       return console.log('ERROR: no times selected for at least one date')
      }
   }
 
    // for each date, check that there's no duplicate date among the ones below it
-  for (let i = 0; i < numDates - 1; i++) {
-    for (let j = i + 1; j < numDates; j++) {
+  for (let i = 0; i &lt; numDates - 1; i++) {
+    for (let j = i + 1; j &lt; numDates; j++) {
       if (d[i].date == d[j].date)       { return console.log('ERROR: duplicate date chosen') }
     }
   }
@@ -291,4 +319,26 @@ function saveNewTask(){
     numberOfItems++;  
     listItems++;
   
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backButton()">backButton()</a></li><li><a href="global.html#buildCheckBoxes">buildCheckBoxes</a></li><li><a href="global.html#buildCopyBlocksindex">buildCopyBlocks</a></li><li><a href="global.html#buildDateModule()">buildDateModule()</a></li><li><a href="global.html#copyBlocksindex">copyBlocks</a></li><li><a href="global.html#initialMode">initialMode</a></li><li><a href="global.html#modeControl">modeControl</a></li><li><a href="global.html#save">save</a></li><li><a href="global.html#saveNewTask">saveNewTask</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Oct 08 2017 18:35:12 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
