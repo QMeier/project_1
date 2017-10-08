@@ -19,7 +19,6 @@ app.use('/HTML', express.static(__dirname + '/HTML'))
 app.use('/Script', express.static(__dirname + '/Script'))
 app.use('/models', express.static(__dirname + '/models'))
 app.use('/assets', express.static(__dirname + '/Image'))
-console.log(app.routes)
 
 // app.get('//HTML/CreateEvent.html', function (req, res,next) {
 //    res.sendFile(path.join(__dirname + "/admin.html"));
@@ -37,10 +36,10 @@ var base = Airtable.base('appv0XuVYZCSh5sX0')
 
 app.post('/create', function (req, res, next) {
   base('Events').create({
-    'Name': req.body.name,
-    'People': req.body.people,
-	 'Times': req.body.timesObjects,
-	'Tasks': req.body.tasks
+    'Name': req.body.Name,
+    'People': req.body.People,
+	 'Times': req.body.TimesObjects,
+	'Tasks': req.body.Tasks
   }, function (err, record) {
     if (err) { console.error(err); return }
     res.send(record)
@@ -79,6 +78,35 @@ app.get("/events", function(req,res,next){
          next()
          })
 })
+
+//update route
+app.route('/event/:id')
+   .post(function(req,res){
+    var people;
+      base('Events').find(req.params.id, function(err, record) {
+        if (err) { console.error(err); return; }
+        people = JSON.parse(record.fields.People)
+        people.push(req.body)
+        people = JSON.stringify(people)
+        base('Events').update(req.params.id, {
+        "People": people
+      }, function(err, record) {
+          if (err) { console.error(err); return; }
+          res.send(record)
+         });      
+    });
+        
+  })
+
+app.route('/tasklist/:id')
+   .post(function(req,res){
+    var tasks = JSON.stringify(req.body)
+        base('Events').update(req.params.id, {
+      "Tasks": tasks
+    }, function(err, record) {
+        if (err) { console.error(err); return; }
+    });
+  })
 
 var port = 8080
 app.listen(port)

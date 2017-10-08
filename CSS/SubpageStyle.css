@@ -127,3 +127,25 @@ ul {
 	margin:10px 0;
 	font-size: 14px;
 }
+
+.task-label-incomplete {
+	display: block;
+	color:black;
+}
+
+.task-label-complete {
+	display: block;
+	color:gray;
+}
+
+.event-task-title {
+	margin: 10px 0 0;
+	font-weight: 600;
+	font-size:18px;
+}
+
+.user-submit-btn {
+	line-height: 26px;
+	vertical-align: middle;
+	margin-left:10px;
+}

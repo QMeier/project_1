@@ -49,10 +49,12 @@ function drawEvents(){
   $('#events').empty()
    var eventsDiv = document.getElementById('events')
    var events = []
+   // FOR EVERY EVENt
    for(var i=0;i<eventsFromDB.length;i++)
    {
       
       events[i] = document.createElement('div')
+      events[i].setAttribute('id',eventsFromDB[i].Id)
       events[i].setAttribute('class','event')
       events[i].style.backgroundColor = eventsFromDB[i].color
       eventsDiv.appendChild(events[i])
@@ -65,7 +67,13 @@ function drawEvents(){
     //get date and times
     eventsFromDB[i].Times = JSON.parse(eventsFromDB[i].Times)
 
+    //FOR EVERY DATE 
     for(var j=0;j<eventsFromDB[i].Times.length;j++){
+        var dateBlockContainer = document.createElement('div')
+        dateBlockContainer.setAttribute('id', eventsFromDB[i].Times[j].date) 
+        
+
+
         var eventDate = document.createElement('div')
         eventDate.setAttribute('class','event-date')
         eventDate.textContent = eventsFromDB[i].Times[j].date
@@ -77,6 +85,7 @@ function drawEvents(){
           eventTime.textContent = getTimes(eventsFromDB[i].Times[j].blocks)
           events[i].appendChild(eventTime)
 
+          //CHECKBOX FOR TIMESWITIN DATES
           for(var t=0;t<eventsFromDB[i].Times[j].blocks.length;t++){
 
             var eventsBlocks = []
@@ -91,15 +100,59 @@ function drawEvents(){
              eventsBlocks[j].input.setAttribute('name','block'+j)
              eventsBlocks[j].input.setAttribute('value',eventsFromDB[i].Times[j].blocks[t])
              eventsBlocks[j].label.appendChild(eventsBlocks[j].input)
-             events[i].appendChild(eventsBlocks[j].label)
+             dateBlockContainer.appendChild(eventsBlocks[j].label)
              $(".block-label").click(function(e) {
                 e.stopPropagation();
              });
           }
+          events[i].appendChild(dateBlockContainer)
     }
+
       
 
-      //user's name textbox
+      //FOR EVERY EVENT CREATE THE THING AND CHECK IF IT IS FULFILLED
+        var completeTasks = document.createElement('div')
+          completeTasks.setAttribute('class','complete-tasks')
+          
+
+        var incompleteTasks = document.createElement('div')
+          incompleteTasks.setAttribute('class','incomplete-tasks')
+          
+
+      if(eventsFromDB[i].Tasks){
+        var taskTitle = document.createElement('div')
+        taskTitle.setAttribute('class', 'event-task-title')
+        taskTitle.textContent = "Tasks"
+        events[i].appendChild(taskTitle)
+
+        eventsFromDB[i].Tasks = JSON.parse(eventsFromDB[i].Tasks)
+        for(var j=0;j<eventsFromDB[i].Tasks.length;j++){
+
+          var taskLabel = document.createElement('label')
+          if(eventsFromDB[i].Tasks[j].person == ""){
+            taskLabel.setAttribute('class','task-label-incomplete')  
+            taskLabel.innerHTML = eventsFromDB[i].Tasks[j].name
+
+            var cb = document.createElement('input')
+            cb.setAttribute('type','checkbox')
+            cb.setAttribute('value',eventsFromDB[i].Tasks[j].name)
+            taskLabel.appendChild(cb)
+            incompleteTasks.appendChild(taskLabel)
+
+          }
+          else{
+            taskLabel.setAttribute('class','task-label-complete')   
+            taskLabel.innerHTML = (eventsFromDB[i].Tasks[j].name + " - " + eventsFromDB[i].Tasks[j].person)
+            completeTasks.appendChild(taskLabel)
+          }
+          events[i].appendChild(completeTasks)
+          events[i].appendChild(incompleteTasks)
+        }  
+      }
+      
+      
+
+      // NAME TEXTBOX
       var usersName = document.createElement('input')
       usersName.setAttribute('class','event-users-name')
       usersName.setAttribute('type','text')
@@ -112,18 +165,151 @@ function drawEvents(){
 
       var submitBtn = document.createElement('button')
       submitBtn.setAttribute('class','user-submit-btn')
-      submitBtn.textContent = 'Submit'
+      submitBtn.textContent = 'Sign Up'
       events[i].appendChild(submitBtn)
       $(".user-submit-btn").click(function(e) {
             e.stopPropagation();
       });
+
+      var viewAttendeesBtn = document.createElement('button')
+      viewAttendeesBtn.setAttribute('class','user-submit-btn')
+      viewAttendeesBtn.textContent = 'View Attendees'
+      events[i].appendChild(viewAttendeesBtn)
+      $(".user-submit-btn").click(function(e) {
+            e.stopPropagation();
+      });
+      viewAttendeesBtn.onclick = function() {
+        showAttendeesForEvent(this.parentElement)
+      }
       //add onclick to submite btn and handle a submission
       submitBtn.onclick = function(){
          addUserToEvent(this.parentElement)
-         clearEventFields(this.parentElement)
       }
     }
   }
+
+var updateTaskList = function(element) {
+  var tasks = []
+  var selectedTaskNames = []
+  var children = element.childNodes
+  var tasksDiv = element.getElementsByClassName('incomplete-tasks')
+
+  for(var i=0;i<eventsFromDB.length;i++){
+    if(eventsFromDB[i].Id == element.id){
+      tasks = eventsFromDB[i].Tasks
+    }
+  }
+
+  if(tasksDiv.length > 0){
+    var uncompletedTasks = tasksDiv[0].childNodes
+    for(var i=0;i<uncompletedTasks.length;i++){
+      if(uncompletedTasks[i].childNodes[1].checked == true){
+        selectedTaskNames.push(uncompletedTasks[i].childNodes[0].textContent)
+      }
+    }
+
+    //now actually make the field for DB
+
+    for(var i=0;i<tasks.length;i++){
+      for(var j=0;j<selectedTaskNames.length;j++){
+        if(selectedTaskNames[j] == tasks[i].name){
+          tasks[i].person = children[children.length-3].value
+        }
+      }
+    }
+    // tasks = JSON.stringify(tasks)
+    updateEventTaskList(tasks, element.id)
+  }
+}
+
+var addUserToEvent = function(element) {
+
+  var children = element.childNodes
+  if(children[children.length-3].value == ''){
+  return console.log('error: must enter your name')
+ }
+  var people = {
+    name: children[children.length-3].value,
+    times: []
+  } 
+
+   //get updated fields
+  var dateBlocks = []
+  for(var i=0;i<children.length;i++){
+    if(children[i].id){
+      dateBlocks.push(children[i])
+    }
+  }
+  //for every date
+  for(var i=0;i<dateBlocks.length;i++){
+    var datesTimes = {}
+    datesTimes.date = dateBlocks[i].id
+    var blocks = []
+    //get Checked Times for that date
+    for(var j=0;j<dateBlocks[i].childNodes.length;j++){
+      if(dateBlocks[i].childNodes[j].childNodes[1].checked){
+        blocks.push(parseInt(dateBlocks[i].childNodes[j].childNodes[1].value))
+      }
+    }
+    datesTimes.blocks = blocks
+    people.times.push(datesTimes)
+  }
+  var isInputValid = 0
+  for(var i=0;i<people.times.length;i++){
+    if(people.times[i].blocks.length > 0 ){
+      isInputValid += people.times[i].blocks.length
+    }
+  }
+  if(isInputValid == 0){
+    return(console.log('error: must sign up for at least 1 time block'))
+  }
+  updateEvent(people, element.id)
+  return(updateTaskList(element))
+}
+
+var showAttendeesForEvent = function(element){
+
+}
+
+/**
+* @Function updateEvent
+* This function sends information from the html document to the airTable database
+* to be updated with the information
+* 
+* @pre    data - information to be updated at the database..  
+* @post   none
+* @since  September 17, 2017
+*
+*/
+
+var updateEvent = function(data, id){
+   var url = 'http://localhost:8080/event/'+id
+   $.ajax({
+      url: url,
+      method: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      dataType: "json",
+      success: function(data){
+        window.location.href = '../'
+      },
+   })
+}
+
+var updateEventTaskList = function(data, id){
+   var url = 'http://localhost:8080/tasklist/'+id
+   $.ajax({
+      url: url,
+      method: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      dataType: "json",
+      success: function(data){
+        window.location.href = '../'
+      },
+   })
+}
+
 /**
 * @Function backButton()
 *

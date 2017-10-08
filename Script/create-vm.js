@@ -3,6 +3,7 @@ window.addEventListener('load', initialMode, false)
 var militaryTime = false
 
 var allTheTasks = []
+var numberOfItems = 0
 var listItems = 1
 var numDates = 0
 
@@ -21,20 +22,20 @@ function initialMode () {
 }
 
 /**
-*	@Function buildDateModule()
+* @Function buildDateModule()
 *
-*	@description Builds a new module for picking another date and times in the event creation, in order to handle
-*	multi-day events.
+* @description Builds a new module for picking another date and times in the event creation, in order to handle
+* multi-day events.
 */
 function buildDateModule () {
   let module = document.getElementById('time-select-module')
 
-	// create paragraph with text and input for date select
+  // create paragraph with text and input for date select
   let paragraph = document.createElement('P')
   let input = document.createElement('INPUT')
   let checkboxdiv = document.createElement('DIV')
 
-	// build paragraph with date selector
+  // build paragraph with date selector
   paragraph.appendChild(document.createTextNode('Date:'))
   input.setAttribute('type', 'date')
   input.setAttribute('min', '2017-09-01')
@@ -43,7 +44,7 @@ function buildDateModule () {
   paragraph.appendChild(input)
   paragraph.appendChild(document.createElement('BR'))
 
-	// build div to hold the checkboxes
+  // build div to hold the checkboxes
   checkboxdiv.setAttribute('id', 'time-selector-' + numDates)
   checkboxdiv.setAttribute('class', 'time-selector')
 
@@ -93,29 +94,29 @@ var buildCheckBoxes = function (index) {
 function buildCopyBlocks (index) {
   let module = document.getElementById('time-select-module')
 
-	// create paragraph with text and input for date select
+  // create paragraph with text and input for date select
   let paragraph = document.createElement('P')
   let input = document.createElement('select')
   let submitButton = document.createElement('button')
 
-	// build paragraph with date selector
+  // build paragraph with date selector
   paragraph.appendChild(document.createTextNode('Copy selected times from date: '))
   input.setAttribute('name', 'dateCopy')
   input.setAttribute('id', 'select-' + index)
 
-	// find out all the current chosen dates and add them as options
+  // find out all the current chosen dates and add them as options
   for (let i = 0; i <= numDates - 1; i++) {
-	  let options = document.createElement('option')
-	  let currDate = document.getElementById('date-' + i).value
-	  if (currDate == '') {
-		  options.setAttribute('value', 'Date ' + (i + 1))
-		  options.appendChild(document.createTextNode('Date ' + (i + 1)))
-	  } else {
-		  options.setAttribute('value', currDate)
-		  options.appendChild(document.createTextNode(currDate))
-	  }
+    let options = document.createElement('option')
+    let currDate = document.getElementById('date-' + i).value
+    if (currDate == '') {
+      options.setAttribute('value', 'Date ' + (i + 1))
+      options.appendChild(document.createTextNode('Date ' + (i + 1)))
+    } else {
+      options.setAttribute('value', currDate)
+      options.appendChild(document.createTextNode(currDate))
+    }
 
-	  input.appendChild(options)
+    input.appendChild(options)
   }
 
   submitButton.setAttribute('onclick', 'copyBlocks(' + index + ')')
@@ -140,25 +141,25 @@ function copyBlocks (index) {
   let copyFrom = document.getElementById('select-' + index).value
   let dateSearch
 
-	// find the index of the date module we're copying from
-  if (copyFrom.charAt(0) == 'D')	{
-		// if the selected choice from the dropdown is of the form "Date #" then that number minus 1 is the index of the date module
+  // find the index of the date module we're copying from
+  if (copyFrom.charAt(0) == 'D')  {
+    // if the selected choice from the dropdown is of the form "Date #" then that number minus 1 is the index of the date module
     dateSearch = parseInt(copyFrom.substring(5)) - 1
-  }	else	{
-		// otherwise, look for date module with the same date string as the selection
-    for (let i = 0; i < numDates; i++)		{
-      if (document.getElementById('date-' + i).value == copyFrom)			{
+  } else  {
+    // otherwise, look for date module with the same date string as the selection
+    for (let i = 0; i < numDates; i++)    {
+      if (document.getElementById('date-' + i).value == copyFrom)     {
         dateSearch = i
         break
       }
     }
   }
 
-	// now that we know what date to copy to and to copy from, actually copy the time block checkboxes
-  for (let i = 0; i < 48; i++)	{
-    if (document.getElementById(dateSearch + '-block-' + i).checked)		{
+  // now that we know what date to copy to and to copy from, actually copy the time block checkboxes
+  for (let i = 0; i < 48; i++)  {
+    if (document.getElementById(dateSearch + '-block-' + i).checked)    {
       document.getElementById(index + '-block-' + i).checked = true
-    }		else			{ document.getElementById(index + '-block-' + i).checked = false }
+    }   else      { document.getElementById(index + '-block-' + i).checked = false }
   }
 }
 
@@ -174,10 +175,10 @@ function modeControl () {
   var mode = document.getElementById('TimeMode').value
   if (mode == 12) {
     militaryTime = false
-	  for (let i = 0; i < numDates; i++)		  { buildCheckBoxes(i) }
+    for (let i = 0; i < numDates; i++)      { buildCheckBoxes(i) }
   } else {
     militaryTime = true
-	  for (let i = 0; i < numDates; i++)		  { buildCheckBoxes(i) }
+    for (let i = 0; i < numDates; i++)      { buildCheckBoxes(i) }
   }
 }
 
@@ -243,7 +244,8 @@ function save () {
   }
 
    // create event object with data and sends to database, then goes back to homepage
-  var event = new Event(n, '[{"name":"John Gibbons","times":' + JSON.stringify(d) + ',"task":""}]', JSON.stringify(d),fillTask)
+  var event = new Event(n, '[{"name":"John Gibbons","times":' + JSON.stringify(d) + '}]', JSON.stringify(d),fillTask)
+
   $.ajax({
     url: '/create',
     method: 'POST',
@@ -270,21 +272,23 @@ function backButton () {
 
 /** Name: saveNewTask
 *Scope: CreateEvent
-*Description:	Saves the task created into an array. It takes a child node and is going to display the tasks on the html document.
-*				For everytime that the save task is hit it will clear the entrybox.
+*Description: Saves the task created into an array. It takes a child node and is going to display the tasks on the html document.
+*       For everytime that the save task is hit it will clear the entrybox.
 *
 *Pre: Event create page loaded, all event creation inputs filled out according to rules of event signup
 *Post: Event is saved in localStorage in either a new document if document not created or in a previously created event creation document
 */
-function saveNewTask(){	
+function saveNewTask(){ 
 
-		var node = document.createElement("ul");
-		var newTask =  document.getElementById("TaskList").value;
-		allTheTasks.push(new Task(newTask, ''));
-		newTask = listItems + "- " + newTask;
-		var textnode = document.createTextNode(newTask);    //instead of node create an li to create the table method
-		node.appendChild(textnode);
-		document.getElementById("TaskList1").appendChild(node);
-		document.getElementById("TaskList").value = "";
-		listItems++;
+    var node = document.createElement("ul");
+    var newTask =  document.getElementById("TaskList").value;
+    allTheTasks[numberOfItems] = new Task(newTask, '');
+    newTask = listItems + "- " + newTask;
+    var textnode = document.createTextNode(newTask);    //instead of node create an li to create the table method
+    node.appendChild(textnode);
+    document.getElementById("TaskList1").appendChild(node);
+    document.getElementById("TaskList").value = "";
+    numberOfItems++;  
+    listItems++;
+  
 }

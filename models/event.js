@@ -3,5 +3,6 @@ function Event (name, people, timedate, task) {
   this.People = people
   this.TimesObjects = timedate
   this.Tasks = task
+  
 }
 
