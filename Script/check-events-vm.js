@@ -37,7 +37,7 @@ var getEvents = function(){
       dataType: "json",
       success: function(serverEventsArr){
         eventsFromDB = serverEventsArr
-		    drawEvents();
+		    drawEvents(true);
       },
    })
 }
@@ -45,7 +45,7 @@ var getEvents = function(){
 window.addEventListener('load', getEvents(), false)
 
 
-function drawEvents(){
+function drawEvents(firstLoad){
   $('#events').empty()
    var eventsDiv = document.getElementById('events')
    var events = []
@@ -65,7 +65,7 @@ function drawEvents(){
       events[i].appendChild(eventName)
 
     //get date and times
-    eventsFromDB[i].Times = JSON.parse(eventsFromDB[i].Times)
+    if(firstLoad){eventsFromDB[i].Times = JSON.parse(eventsFromDB[i].Times)}
 
     //FOR EVERY DATE 
     for(var j=0;j<eventsFromDB[i].Times.length;j++){
@@ -125,7 +125,8 @@ function drawEvents(){
         taskTitle.textContent = "Tasks"
         events[i].appendChild(taskTitle)
 
-        eventsFromDB[i].Tasks = JSON.parse(eventsFromDB[i].Tasks)
+        if(firstLoad){eventsFromDB[i].Tasks = JSON.parse(eventsFromDB[i].Tasks)}
+        
         for(var j=0;j<eventsFromDB[i].Tasks.length;j++){
 
           var taskLabel = document.createElement('label')
@@ -213,7 +214,7 @@ var updateTaskList = function(element) {
     for(var i=0;i<tasks.length;i++){
       for(var j=0;j<selectedTaskNames.length;j++){
         if(selectedTaskNames[j] == tasks[i].name){
-          tasks[i].person = children[children.length-3].value
+          tasks[i].person = element.getElementsByClassName('event-users-name')[0].value
         }
       }
     }
@@ -223,13 +224,12 @@ var updateTaskList = function(element) {
 }
 
 var addUserToEvent = function(element) {
-
   var children = element.childNodes
-  if(children[children.length-3].value == ''){
+  if(element.getElementsByClassName('event-users-name')[0].value == ''){
   return console.log('error: must enter your name')
  }
   var people = {
-    name: children[children.length-3].value,
+    name: element.getElementsByClassName('event-users-name')[0].value,
     times: []
   } 
 
@@ -278,7 +278,7 @@ var showAttendeesForEvent = function(element){
     }
   }
   attendees = JSON.parse(attendees)
-  console.log(attendees)
+  
 
   var attendeeDiv = document.createElement('div')
   attendeeDiv.setAttribute('class','attendee-container')
@@ -347,6 +347,26 @@ var updateEventTaskList = function(data, id){
         window.location.href = '../'
       },
    })
+}
+
+
+/** Name: Mode Control
+*Scope: CreateEvent
+*Description:  Controls the time mode for event creation between 12 hour notation and 24 hour notation.
+*
+*Pre: Event create page loaded
+*Post: Time mode changes as based on selection of 12 or 24
+*/
+
+function modeControl () {
+  var mode = document.getElementById('TimeMode').value
+  if (mode == 12) {
+    militaryTime = false
+    drawEvents(false)
+  } else {
+    militaryTime = true
+    drawEvents(false)
+  }
 }
 
 /**

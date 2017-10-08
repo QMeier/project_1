@@ -11,6 +11,10 @@
 		<div>
 			<h1 class = "centeredtext">Check All Events</h1>
 				<div id ="checkstatus"></div>
+				<select id = "TimeMode" onchange="modeControl()">
+					<option value = "24">24 hour mode</option>
+					<option value = "12" selected>12 hour mode</option>
+				</select>
 				<div id="events"></div>
 				<button class="button" onclick="backButton()">Go Back</button>
 		</div>
