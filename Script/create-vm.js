@@ -155,7 +155,10 @@ function copyBlocks(index)
 		for(let i=0;i<numDates;i++)
 		{
 			if(document.getElementById('date-' + i).value == copyFrom)
+			{
 				dateSearch = i
+				break;
+			}
 		}
 	}
 
@@ -242,6 +245,16 @@ function save () {
 	   if ((d[i].blocks).length == 0) {
 		  return console.log('ERROR: no times selected for at least one date')
 	   }
+  }
+  
+   //for each date, check that there's no duplicate date among the ones below it
+  for (let i = 0; i < numDates-1; i++)
+  {
+	  for (let j = i+1; j < numDates; j++)
+	  {
+		  if(d[i].date == d[j].date)
+			  return console.log('ERROR: duplicate date chosen')
+	  }
   }
 
    // create event object with data and sends to database, then goes back to homepage
