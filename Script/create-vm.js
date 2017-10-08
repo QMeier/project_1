@@ -46,8 +46,7 @@ function buildDateModule () {
   module.appendChild(checkboxdiv)
 
   buildCheckBoxes(numDates)
-  if(numDates > 0)
-	  buildCopyBlocks(numDates)
+  if (numDates > 0) { buildCopyBlocks(numDates) }
   numDates++
 }
 
@@ -74,8 +73,7 @@ var buildCheckBoxes = function (index) {
     box.setAttribute('id', index + '-block-' + i)
     box.setAttribute('type', 'checkbox')
     label.appendChild(box)
-	if((i+1)%4==0)
-		label.appendChild(document.createElement('br'))
+    if ((i + 1) % 4 == 0) { label.appendChild(document.createElement('br')) }
     container.appendChild(label)
   }
 }
@@ -87,8 +85,7 @@ var buildCheckBoxes = function (index) {
 * date.
 *
 */
-function buildCopyBlocks(index)
-{
+function buildCopyBlocks (index) {
   let module = document.getElementById('time-select-module')
 
 	// create paragraph with text and input for date select
@@ -100,34 +97,30 @@ function buildCopyBlocks(index)
   paragraph.appendChild(document.createTextNode('Copy selected times from date: '))
   input.setAttribute('name', 'dateCopy')
   input.setAttribute('id', 'select-' + index)
-  
-	//find out all the current chosen dates and add them as options
-  for(let i=0;i<=numDates-1;i++)
-  {
+
+	// find out all the current chosen dates and add them as options
+  for (let i = 0; i <= numDates - 1; i++) {
 	  let options = document.createElement('option')
-	  let currDate = document.getElementById('date-' + i).value;
-	  if(currDate == "")
-	  {
-		  options.setAttribute('value','Date '+(i+1))
-		  options.appendChild(document.createTextNode('Date '+ (i+1)))
-	  }
-	  else
-	  {
-		  options.setAttribute('value',currDate)
+	  let currDate = document.getElementById('date-' + i).value
+	  if (currDate == '') {
+		  options.setAttribute('value', 'Date ' + (i + 1))
+		  options.appendChild(document.createTextNode('Date ' + (i + 1)))
+	  } else {
+		  options.setAttribute('value', currDate)
 		  options.appendChild(document.createTextNode(currDate))
 	  }
-	  
+
 	  input.appendChild(options)
   }
-  
-  submitButton.setAttribute('onclick','copyBlocks(' + index + ')')
-  submitButton.setAttribute('class','button')
+
+  submitButton.setAttribute('onclick', 'copyBlocks(' + index + ')')
+  submitButton.setAttribute('class', 'button')
   submitButton.appendChild(document.createTextNode('Copy'))
-  
+
   paragraph.appendChild(input)
   paragraph.appendChild(submitButton)
   paragraph.appendChild(document.createElement('BR'))
-  
+
   module.appendChild(paragraph)
 }
 
@@ -138,41 +131,30 @@ function buildCopyBlocks(index)
 * date module to the module whose index is passed in by the parameter
 *
 */
-function copyBlocks(index)
-{
-	let copyFrom = document.getElementById('select-' + index).value
-	let dateSearch
-	
-	//find the index of the date module we're copying from
-	if(copyFrom.charAt(0) == "D")
-	{
-		//if the selected choice from the dropdown is of the form "Date #" then that number minus 1 is the index of the date module
-		dateSearch = parseInt(copyFrom.substring(5))-1
-	}
-	else
-	{
-		//otherwise, look for date module with the same date string as the selection
-		for(let i=0;i<numDates;i++)
-		{
-			if(document.getElementById('date-' + i).value == copyFrom)
-			{
-				dateSearch = i
-				break;
-			}
-		}
-	}
+function copyBlocks (index) {
+  let copyFrom = document.getElementById('select-' + index).value
+  let dateSearch
 
-	//now that we know what date to copy to and to copy from, actually copy the time block checkboxes
-	for(let i=0;i<48;i++)
-	{
-		if(document.getElementById(dateSearch + '-block-' + i).checked)
-		{
-			document.getElementById(index + '-block-' + i).checked = true
-		}
-		else
-			document.getElementById(index + '-block-' + i).checked = false
-	}
-	
+	// find the index of the date module we're copying from
+  if (copyFrom.charAt(0) == 'D')	{
+		// if the selected choice from the dropdown is of the form "Date #" then that number minus 1 is the index of the date module
+    dateSearch = parseInt(copyFrom.substring(5)) - 1
+  }	else	{
+		// otherwise, look for date module with the same date string as the selection
+    for (let i = 0; i < numDates; i++)		{
+      if (document.getElementById('date-' + i).value == copyFrom)			{
+        dateSearch = i
+        break
+      }
+    }
+  }
+
+	// now that we know what date to copy to and to copy from, actually copy the time block checkboxes
+  for (let i = 0; i < 48; i++)	{
+    if (document.getElementById(dateSearch + '-block-' + i).checked)		{
+      document.getElementById(index + '-block-' + i).checked = true
+    }		else			{ document.getElementById(index + '-block-' + i).checked = false }
+  }
 }
 
 /** Name: Mode Control
@@ -246,19 +228,16 @@ function save () {
 		  return console.log('ERROR: no times selected for at least one date')
 	   }
   }
-  
-   //for each date, check that there's no duplicate date among the ones below it
-  for (let i = 0; i < numDates-1; i++)
-  {
-	  for (let j = i+1; j < numDates; j++)
-	  {
-		  if(d[i].date == d[j].date)
-			  return console.log('ERROR: duplicate date chosen')
+
+   // for each date, check that there's no duplicate date among the ones below it
+  for (let i = 0; i < numDates - 1; i++) {
+	  for (let j = i + 1; j < numDates; j++) {
+		  if (d[i].date == d[j].date)			  { return console.log('ERROR: duplicate date chosen') }
 	  }
   }
 
    // create event object with data and sends to database, then goes back to homepage
-  var event = new Event(n, 'John Gibbons,' + JSON.stringify(d), JSON.stringify(d))
+  var event = new Event(n, '[{"name":"John Gibbons","times":' + JSON.stringify(d) + ',"task":""}]', JSON.stringify(d))
   $.ajax({
     url: '/create',
     method: 'POST',
