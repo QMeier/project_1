@@ -39,7 +39,8 @@ app.post('/create', function (req, res, next) {
   base('Events').create({
     'Name': req.body.Name,
     'People': req.body.People,
-	 'Times': req.body.TimesObjects
+	 'Times': req.body.TimesObjects,
+	'Tasks': req.body.Tasks
   }, function (err, record) {
     if (err) { console.error(err); return }
     res.send(record)

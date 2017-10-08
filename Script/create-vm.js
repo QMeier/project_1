@@ -1,6 +1,12 @@
+//cd Documents/Fall 2017/EECS 448/project_1/
 window.addEventListener('load', initialMode, false)
 var militaryTime = false
+
+var allTheTasks = []
+var numberOfItems = 0
+var listItems = 1
 var numDates = 0
+
 /** Name: initialMode
 *Scope: CreateEvent
 *@Description:  Sets the initial time mode of event creation to 24 hour mode and resets numDates for this
@@ -191,6 +197,7 @@ function save () {
   var currentMonth = DD.getMonth() + 1
   var currentYear = DD.getFullYear()
   var blocks = []
+  var fillTask = JSON.stringify(allTheTasks);
 
    // populate dates array with all the dates
   for (let i = 0; i < numDates; i++) {
@@ -237,7 +244,7 @@ function save () {
   }
 
    // create event object with data and sends to database, then goes back to homepage
-  var event = new Event(n, '[{"name":"John Gibbons","times":' + JSON.stringify(d) + ',"task":""}]', JSON.stringify(d))
+  var event = new Event(n, '[{"name":"John Gibbons","times":' + JSON.stringify(d) + ',"task":""}]', JSON.stringify(d),fillTask)
   $.ajax({
     url: '/create',
     method: 'POST',
@@ -261,6 +268,26 @@ function backButton () {
   window.history.back()
 }
 
-function saveNewTask (taskItem) {
-  var newTask = document.getElementById('Add Task').value
+
+/** Name: saveNewTask
+*Scope: CreateEvent
+*Description:	Saves the task created into an array. It takes a child node and is going to display the tasks on the html document.
+*				For everytime that the save task is hit it will clear the entrybox.
+*
+*Pre: Event create page loaded, all event creation inputs filled out according to rules of event signup
+*Post: Event is saved in localStorage in either a new document if document not created or in a previously created event creation document
+*/
+function saveNewTask(){	
+
+		var node = document.createElement("ul");
+		var newTask =  document.getElementById("TaskList").value;
+		allTheTasks[numberOfItems] = newTask;
+		newTask = listItems + "- " + newTask;
+		var textnode = document.createTextNode(newTask);    //instead of node create an li to create the table method
+		node.appendChild(textnode);
+		document.getElementById("TaskList1").appendChild(node);
+		document.getElementById("TaskList").value = "";
+		numberOfItems++;	
+		listItems++;
+	
 }

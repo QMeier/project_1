@@ -13,7 +13,19 @@
 		<div>
 			<h1 class = "centeredtext">Create an Event</h1>
 			<section>
+
+			<div class ="amountOfTasks"><b>List of the Tasks:</b>
+			
+				<ol id = "TaskList1">
+				
+				
+				</ol>
+			
+			
+			</div>
+
 				Event Name: <input type="text" id="name"><br /><br/>
+
 				<!-- Start Time: <input type="time" step="1800" id ="starttime"/><br /><br/>
 				End Time: <input type="time" step="1800" id ="endtime"/><br /><br/> -->
 				
@@ -26,18 +38,28 @@
 				</select>
 				<br /><br/>
 			</section>
+			
+			Tasks: <input type="text" id="TaskList">
+			<a><input type="button" class="button" value="SaveTask" onclick="saveNewTask();"></a>
+
+			
 		</div>
 		<div id='time-select-module'>
 		</div>
+
+		
+
+			
+
 		<button class="button" id="add-date" onclick="buildDateModule()">Add Another Date</button><br/>
-		Tasks: <input type="text" id="TaskList">
-		<a><input type="button" class="button" value="Save Task" onclick="saveNewTask(taskItem);"></a>
+
 		<section>
 			<a><input type="button" class="button" value="Create Event" onclick="save();"></a>				
 			<button class="button" onclick="backButton()">Go Back</button>
 			
 		</section>
 		
+
 		</div>
 	</body>
 </center>

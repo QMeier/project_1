@@ -78,9 +78,18 @@ ul {
 }
 
 .time-selector {
-	line-height: 30px
+
+	line-height: 30px;
+}
+.amountOfTasks{
+	
+	position: absolute;
+	top: 250px;
+	right: 620px;
+	
 }
 
 #add-date {
 	width: 150px;
 }
+
